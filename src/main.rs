@@ -704,6 +704,11 @@ fn parse_l2(tokens: Vec<TokenLevel2>) -> Vec<EntityLevel2> {
             i+=1;
             continue;
         }
+        else {
+            entities.push(EntityLevel2 { value1: tokens[i].value.clone(), value2: "".to_string(), entity_type: EntityTypeLevel2::Other });
+            i+=1;
+            continue;
+        }
 
         i+=1;
     }
@@ -732,6 +737,9 @@ fn compile_l2(entities: Vec<EntityLevel2>) -> String {
         }
         else if entity.entity_type == EntityTypeLevel2::WikiFile {
             compiled_line += &format!("<img src=\"{}/File:{}\">", DOMAIN, entity.value1);
+        }
+        else if entity.entity_type == EntityTypeLevel2::Other {
+            compiled_line += &entity.value1;
         }
     }
 
