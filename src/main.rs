@@ -746,15 +746,78 @@ fn compile_l2(entities: Vec<EntityLevel2>) -> String {
     return compiled_line;
 }
 
+fn compile(entities: Vec<Entity>) -> String {
+    let mut output = String::from("");
+    let mut i = 0;
+
+    while i < entities.len() {
+        if entities[i].entity_type == EntityType::Heading1 {
+            output += &format!("<h1>{}</h1>", entities[i].value);
+            i+=1;
+            continue;
+        }
+        else if entities[i].entity_type == EntityType::Heading2 {
+            output += &format!("<h2>{}</h2>", entities[i].value);
+            i+=1;
+            continue;
+        }
+        else if entities[i].entity_type == EntityType::Heading3 {
+            output += &format!("<h3>{}</h3>", entities[i].value);
+            i+=1;
+            continue;
+        }
+        else if entities[i].entity_type == EntityType::Heading4 {
+            output += &format!("<h4>{}</h4>", entities[i].value);
+            i+=1;
+            continue;
+        }
+        else if entities[i].entity_type == EntityType::Heading5 {
+            output += &format!("<h5>{}</h5>", entities[i].value);
+            i+=1;
+            continue;
+        }
+        else if entities[i].entity_type == EntityType::Heading6 {
+            output += &format!("<h6>{}</h6>", entities[i].value);
+            i+=1;
+            continue;
+        }
+
+        else if entities[i].entity_type == EntityType::Paragraph {
+            output += &format!("<p>{}</p>", entities[i].value);
+            i+=1;
+            continue;
+        }
+
+        else if entities[i].entity_type == EntityType::ListItem {
+            output += "<li>";
+            while i < entities.len() && entities[i].entity_type == EntityType::ListItem {
+                output += &format!("<ul>{}</ul>", entities[i].value);
+                i+=1;
+            }
+            output += "</li>";
+            i+=1;
+            continue;
+        }
+
+        i+=1;
+    }
+
+    return output;
+}
+
 fn main() {
     let code = read_code_from_file();
     let tokens: Vec<Token> = scan_code(&code.unwrap());
     let entities: Vec<Entity> = parse_code(tokens);
+
+    let mut compiled_entities: Vec<Entity> = vec![];
     
     for entity in entities {
         let entity_sub_tokens = scan_l2(&entity.value);
         let entity_sub_entities = parse_l2(entity_sub_tokens);
         let compiled_entity_value = compile_l2(entity_sub_entities);
-        println!("{}", compiled_entity_value);
+        compiled_entities.push(Entity { value: compiled_entity_value, entity_type: entity.entity_type });
     }
+
+    println!("{:?}", compiled_entities);
 }
