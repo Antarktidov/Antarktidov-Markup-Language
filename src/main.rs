@@ -1,3 +1,4 @@
+use std::process;
 use std::{env, fs::File};
 use std::io::Read;
 use unicode_segmentation::UnicodeSegmentation;
@@ -262,6 +263,7 @@ fn parse_code(tokens: Vec<Token>) -> Vec<Entity> {
                     i+=1;
                 }
                 entities.push(Entity { value, entity_type: EntityType::Heading1 });
+                i+=1;
                 continue;
             }
         }
@@ -274,6 +276,7 @@ fn parse_code(tokens: Vec<Token>) -> Vec<Entity> {
                     i+=1;
                 }
                 entities.push(Entity { value, entity_type: EntityType::Heading2 });
+                i+=1;
                 continue;
             }
         }
@@ -286,9 +289,11 @@ fn parse_code(tokens: Vec<Token>) -> Vec<Entity> {
                     i+=1;
                 }
                 entities.push(Entity { value, entity_type: EntityType::Heading3 });
+                i+=1;
                 continue;
             }
         }
+
 
         else if tokens[i].token_type == TokenType::SHARP4 {
             if tokens[i-1].token_type == TokenType::NEWLINE {
@@ -298,6 +303,7 @@ fn parse_code(tokens: Vec<Token>) -> Vec<Entity> {
                     i+=1;
                 }
                 entities.push(Entity { value, entity_type: EntityType::Heading4 });
+                i+=1;
                 continue;
             }
         }
@@ -310,6 +316,7 @@ fn parse_code(tokens: Vec<Token>) -> Vec<Entity> {
                     i+=1;
                 }
                 entities.push(Entity { value, entity_type: EntityType::Heading5 });
+                i+=1;
                 continue;
             }
         }
@@ -322,6 +329,7 @@ fn parse_code(tokens: Vec<Token>) -> Vec<Entity> {
                     i+=1;
                 }
                 entities.push(Entity { value, entity_type: EntityType::Heading6 });
+                i+=1;
                 continue;
             }
         }
@@ -335,6 +343,7 @@ fn parse_code(tokens: Vec<Token>) -> Vec<Entity> {
                     i+=1;
                 }
                 entities.push(Entity { value, entity_type: EntityType::Heading1 });
+                i+=1;
                 continue;
             }
         }
@@ -347,6 +356,7 @@ fn parse_code(tokens: Vec<Token>) -> Vec<Entity> {
                     i+=1;
                 }
                 entities.push(Entity { value, entity_type: EntityType::Heading2 });
+                i+=1;
                 continue;
             }
         }
@@ -359,6 +369,7 @@ fn parse_code(tokens: Vec<Token>) -> Vec<Entity> {
                     i+=1;
                 }
                 entities.push(Entity { value, entity_type: EntityType::Heading3 });
+                i+=1;
                 continue;
             }
         }
@@ -371,6 +382,7 @@ fn parse_code(tokens: Vec<Token>) -> Vec<Entity> {
                     i+=1;
                 }
                 entities.push(Entity { value, entity_type: EntityType::Heading4 });
+                i+=1;
                 continue;
             }
         }
@@ -383,6 +395,7 @@ fn parse_code(tokens: Vec<Token>) -> Vec<Entity> {
                     i+=1;
                 }
                 entities.push(Entity { value, entity_type: EntityType::Heading5 });
+                i+=1;
                 continue;
             }
         }
@@ -395,6 +408,7 @@ fn parse_code(tokens: Vec<Token>) -> Vec<Entity> {
                     i+=1;
                 }
                 entities.push(Entity { value, entity_type: EntityType::Heading6 });
+                i+=1;
                 continue;
             }
         }
@@ -408,6 +422,7 @@ fn parse_code(tokens: Vec<Token>) -> Vec<Entity> {
                     i+=1;
                 }
                 entities.push(Entity { value, entity_type: EntityType::Heading1 });
+                i+=1;
                 continue;
             }
         }
@@ -420,6 +435,7 @@ fn parse_code(tokens: Vec<Token>) -> Vec<Entity> {
                     i+=1;
                 }
                 entities.push(Entity { value, entity_type: EntityType::Heading2 });
+                i+=1;
                 continue;
             }
         }
@@ -432,6 +448,7 @@ fn parse_code(tokens: Vec<Token>) -> Vec<Entity> {
                     i+=1;
                 }
                 entities.push(Entity { value, entity_type: EntityType::Heading3 });
+                i+=1;
                 continue;
             }
         }
@@ -444,6 +461,7 @@ fn parse_code(tokens: Vec<Token>) -> Vec<Entity> {
                     i+=1;
                 }
                 entities.push(Entity { value, entity_type: EntityType::Heading4 });
+                i+=1;
                 continue;
             }
         }
@@ -456,6 +474,7 @@ fn parse_code(tokens: Vec<Token>) -> Vec<Entity> {
                     i+=1;
                 }
                 entities.push(Entity { value, entity_type: EntityType::Heading5 });
+                i+=1;
                 continue;
             }
         }
@@ -468,6 +487,7 @@ fn parse_code(tokens: Vec<Token>) -> Vec<Entity> {
                     i+=1;
                 }
                 entities.push(Entity { value, entity_type: EntityType::Heading6 });
+                i+=1;
                 continue;
             }
         }
@@ -480,16 +500,20 @@ fn parse_code(tokens: Vec<Token>) -> Vec<Entity> {
                     i+=1;
                 }
                 entities.push(Entity { value, entity_type: EntityType::ListItem });
+                i+=1;
                 continue;
             }
         } else {
             if i >= 1 && tokens[i-1].token_type == TokenType::NEWLINE {
-                let mut value = String::from("");
-                while i+1 < tokens.len() && tokens[i+1].token_type == TokenType::NEWLINE {
-                    value += &tokens[i].value;
+                let mut text = String::from("");
+                while i < tokens.len() && tokens[i+1].token_type != TokenType::NEWLINE {
+                    text += &tokens[i].value;
+                    println!("VALUE{}", &tokens[i].value);
                     i+=1;
                 }
-                entities.push(Entity { value, entity_type: EntityType::Paragraph });
+                println!("TEXT{},", text);
+                entities.push(Entity { value: text, entity_type: EntityType::Paragraph });
+                i+=1;
                 continue;
             }
         }
