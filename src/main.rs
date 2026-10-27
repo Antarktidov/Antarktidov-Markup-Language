@@ -1,7 +1,7 @@
 use std::{env, fs::File};
 use std::io::Read;
 
-fn main() -> std::io::Result<()> {
+fn read_code_from_file() -> std::io::Result<(String)> {
     let args: Vec<String> = env::args().collect();
     let args_count = args.iter().count();
 
@@ -15,5 +15,10 @@ fn main() -> std::io::Result<()> {
 
     let mut code = String::new();
     file.read_to_string(&mut code)?;
-    Ok(())
+    return Ok(code);
+}
+
+fn main() {
+    let code = read_code_from_file();
+    println!("{}", code.unwrap());
 }
