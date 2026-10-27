@@ -18,6 +18,19 @@ fn read_code_from_file() -> std::io::Result<(String)> {
     return Ok(code);
 }
 
+enum TokenType {
+    SHARP,
+    EQUAL,
+    STAR,
+    NEWLINE,
+    OTHER,
+}
+
+struct Token {
+    value: String,
+    token_type: TokenType,
+}
+
 fn main() {
     let code = read_code_from_file();
     println!("{}", code.unwrap());
