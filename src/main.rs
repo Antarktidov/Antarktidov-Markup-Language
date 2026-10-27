@@ -537,6 +537,11 @@ enum TokenTypeLevel2 {
     RUFile
 }
 
+struct TokenLevel2 {
+    value: String,
+    token_type: TokenTypeLevel2,
+}
+
 fn main() {
     let code = read_code_from_file();
     let tokens: Vec<Token> = scan_code(&code.unwrap());
