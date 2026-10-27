@@ -524,6 +524,19 @@ fn parse_code(tokens: Vec<Token>) -> Vec<Entity> {
     return entities;
 }
 
+enum TokenTypeLevel2 {
+    DoubleOpeningBrackets,
+    DoubleClosingBrackets,
+    OpeningRoundBraces,
+    ClosingRoundBraces,
+    OpeningBrackets,
+    ClosingBrackets,
+
+    Split,
+    Bang,
+    RUFile
+}
+
 fn main() {
     let code = read_code_from_file();
     let tokens: Vec<Token> = scan_code(&code.unwrap());
