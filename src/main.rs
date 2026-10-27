@@ -666,6 +666,7 @@ fn parse_l2(tokens: Vec<TokenLevel2>) -> Vec<EntityLevel2> {
                 val1 += &tokens[i].value;
                 i+=1;
             }
+            i+=1;
             if tokens[i].token_type == TokenTypeLevel2::OpeningRoundBraces {
                 let mut val2 = String::from("");
                 i+=1;
