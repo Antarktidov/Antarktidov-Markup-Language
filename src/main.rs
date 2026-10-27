@@ -2,7 +2,7 @@ use std::process;
 use std::{env, fs::File};
 use std::io::Read;
 use unicode_segmentation::UnicodeSegmentation;
-
+use std::io::prelude::*;
 const DOMAIN: &str = "https://example.com/wiki";
 
 fn read_code_from_file() -> std::io::Result<(String)> {
@@ -805,6 +805,12 @@ fn compile(entities: Vec<Entity>) -> String {
     return output;
 }
 
+fn write_file(output: &str) -> std::io::Result<()> {
+    let mut file = File::create("output.html")?;
+    file.write_all(output.as_bytes())?;
+    Ok(())
+}
+
 fn main() {
     let code = read_code_from_file();
     let tokens: Vec<Token> = scan_code(&code.unwrap());
@@ -820,5 +826,5 @@ fn main() {
     }
 
     let html = compile(compiled_entities);
-    print!("{}", html);
+    write_file(&html);
 }
