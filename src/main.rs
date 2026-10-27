@@ -506,7 +506,7 @@ fn parse_code(tokens: Vec<Token>) -> Vec<Entity> {
         } else {
             if i >= 1 && tokens[i-1].token_type == TokenType::NEWLINE {
                 let mut text = String::from("");
-                while i < tokens.len() && tokens[i+1].token_type != TokenType::NEWLINE {
+                while i + 1 < tokens.len() && tokens[i+1].token_type != TokenType::NEWLINE {
                     text += &tokens[i].value;
                     println!("VALUE{}", &tokens[i].value);
                     i+=1;
