@@ -20,6 +20,7 @@ fn read_code_from_file() -> std::io::Result<(String)> {
 }
 
 #[derive(PartialEq)]
+#[derive(Debug)]
 enum TokenType {
     SHARP1,
     SHARP2,
@@ -55,13 +56,14 @@ enum TokenType {
 }
 
 #[derive(PartialEq)]
+#[derive(Debug)]
 struct Token {
     value: String,
     token_type: TokenType,
 }
 
 fn scan_code(code: &str) -> Vec<Token> {
-    let mut tokens: Vec<Token> = vec![tokens.push(Token { value: "".to_string(), token_type: TokenType::NEWLINE })];
+    let mut tokens: Vec<Token> = vec![(Token { value: "".to_string(), token_type: TokenType::NEWLINE })];
     let mut graphemes: Vec<&str> = code.graphemes(true).collect();
     let mut i = 0;
 
@@ -229,6 +231,7 @@ fn scan_code(code: &str) -> Vec<Token> {
 }
 
 #[derive(PartialEq)]
+#[derive(Debug)]
 enum EntityType {
     ListItem,
     Paragraph,
@@ -240,6 +243,7 @@ enum EntityType {
     Heading6,
 }
 #[derive(PartialEq)]
+#[derive(Debug)]
 struct Entity {
     value: String,
     entity_type: EntityType,
@@ -478,6 +482,16 @@ fn parse_code(tokens: Vec<Token>) -> Vec<Entity> {
                 entities.push(Entity { value, entity_type: EntityType::ListItem });
                 continue;
             }
+        } else {
+            if i >= 1 && tokens[i-1].token_type == TokenType::NEWLINE {
+                let mut value = String::from("");
+                while i+1 < tokens.len() && tokens[i+1].token_type == TokenType::NEWLINE {
+                    value += &tokens[i].value;
+                    i+=1;
+                }
+                entities.push(Entity { value, entity_type: EntityType::Paragraph });
+                continue;
+            }
         }
 
         i+=1;
@@ -489,4 +503,6 @@ fn parse_code(tokens: Vec<Token>) -> Vec<Entity> {
 fn main() {
     let code = read_code_from_file();
     let tokens: Vec<Token> = scan_code(&code.unwrap());
+    let entities: Vec<Entity> = parse_code(tokens);
+    println!("{:?}", entities);
 }
