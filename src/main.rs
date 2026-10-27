@@ -53,8 +53,47 @@ struct Token {
 
 fn scan_code(code: &str) -> Vec<Token> {
     let mut tokens: Vec<Token> = vec![];
+    let mut graphemes: Vec<&str> = code.graphemes(true).collect();
+    let mut i = 0;
 
+    while i < graphemes.len() {
+        if graphemes[i] == "#" {
+            if i + 1 < graphemes.len() && graphemes[i+1] == "#" {
+                if i + 2 < graphemes.len() && graphemes[i+2] == "#" {
+                    if i + 3 < graphemes.len() && graphemes[i+3] == "#" {
+                        if i + 4 < graphemes.len() && graphemes[i+4] == "#" {
+                            if i + 5 < graphemes.len() && graphemes[i+5] == "#" {
+                                tokens.push(Token { value: "".to_string(), token_type: TokenType::SHARP6 });
+                                i+=6;
+                                continue;
+                            }
 
+                            tokens.push(Token { value: "".to_string(), token_type: TokenType::SHARP5 });
+                            i+=5;
+                            continue;
+                        }
+
+                        tokens.push(Token { value: "".to_string(), token_type: TokenType::SHARP4 });
+                        i+=4;
+                        continue;
+                    }
+
+                    tokens.push(Token { value: "".to_string(), token_type: TokenType::SHARP3 });
+                    i+=3;
+                    continue;
+                }
+
+                tokens.push(Token { value: "".to_string(), token_type: TokenType::SHARP2 });
+                i+=2;
+                continue; 
+            }
+            tokens.push(Token { value: "".to_string(), token_type: TokenType::SHARP1 });
+            i+=1;
+            continue; 
+        }
+
+        i+=1;
+    }
 
     return tokens;
 }
