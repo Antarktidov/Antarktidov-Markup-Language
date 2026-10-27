@@ -1,5 +1,6 @@
 use std::{env, fs::File};
 use std::io::Read;
+use unicode_segmentation::UnicodeSegmentation;
 
 fn read_code_from_file() -> std::io::Result<(String)> {
     let args: Vec<String> = env::args().collect();
@@ -19,8 +20,27 @@ fn read_code_from_file() -> std::io::Result<(String)> {
 }
 
 enum TokenType {
-    SHARP,
-    EQUAL,
+    SHARP1,
+    SHARP2,
+    SHARP3,
+    SHARP4,
+    SHARP5,
+    SHARP6,
+
+    EQUAL1,
+    EQUAL2,
+    EQUAL3,
+    EQUAL4,
+    EQUAL5,
+    EQUAL6,
+
+    H1,
+    H2,
+    H3,
+    H4,
+    H5,
+    H6,
+
     STAR,
     NEWLINE,
     OTHER,
@@ -29,6 +49,14 @@ enum TokenType {
 struct Token {
     value: String,
     token_type: TokenType,
+}
+
+fn scan_code(code: &str) -> Vec<Token> {
+    let mut tokens: Vec<Token> = vec![];
+
+
+
+    return tokens;
 }
 
 fn main() {
