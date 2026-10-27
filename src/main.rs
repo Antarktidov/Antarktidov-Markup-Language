@@ -205,6 +205,19 @@ fn scan_code(code: &str) -> Vec<Token> {
             }
         }
 
+        if graphemes[i] == "*" {
+            tokens.push(Token { value: "".to_string(), token_type: TokenType::STAR });
+            i+=1;
+            continue;
+        }
+
+        if graphemes[i] == "\r\n" {
+            tokens.push(Token { value: "".to_string(), token_type: TokenType::NEWLINE });
+            i+=1;
+            continue;
+        }
+
+        tokens.push(Token { value: graphemes[i].to_string(), token_type: TokenType::OTHER });
         i+=1;
     }
 
@@ -213,5 +226,5 @@ fn scan_code(code: &str) -> Vec<Token> {
 
 fn main() {
     let code = read_code_from_file();
-    println!("{}", code.unwrap());
+    scan_code(&code.unwrap());
 }
