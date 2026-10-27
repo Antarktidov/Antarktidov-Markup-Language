@@ -3,7 +3,7 @@ use std::{env, fs::File};
 use std::io::Read;
 use unicode_segmentation::UnicodeSegmentation;
 
-const DOMAIN: &str = "https://example.com/wiki/";
+const DOMAIN: &str = "https://example.com/wiki";
 
 fn read_code_from_file() -> std::io::Result<(String)> {
     let args: Vec<String> = env::args().collect();
