@@ -613,7 +613,7 @@ enum EntityTypeLevel2 {
     WikiLinkWithText,
     MarkdownLink,
     RUWikiFile,
-    MarkdownImg,
+    AmlImg,
     Other,
 }
 
@@ -673,6 +673,19 @@ fn parse_l2(tokens: Vec<TokenLevel2>) -> Vec<EntityLevel2> {
                 i+=1;
                 continue;
             }
+        }
+        else if i + 1 < tokens.len() &&
+         tokens[i].token_type == TokenTypeLevel2::Bang && tokens[i+1].token_type == TokenTypeLevel2::OpeningRoundBraces {
+            let mut img_link = String::from("");
+            i+=1;
+            while i < tokens.len() && tokens[i].token_type == TokenTypeLevel2::ClosingRoundBraces {
+                img_link += &tokens[i].value;
+                i+=1;
+            }
+
+            entities.push(EntityLevel2 { value1: img_link, value2: "".to_string(), entity_type: EntityTypeLevel2::AmlImg });
+            i+=1;
+            continue;
         }
 
         i+=1;
