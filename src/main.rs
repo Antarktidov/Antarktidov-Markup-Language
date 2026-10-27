@@ -819,5 +819,6 @@ fn main() {
         compiled_entities.push(Entity { value: compiled_entity_value, entity_type: entity.entity_type });
     }
 
-    println!("{:?}", compiled_entities);
+    let html = compile(compiled_entities);
+    print!("{}", html);
 }
