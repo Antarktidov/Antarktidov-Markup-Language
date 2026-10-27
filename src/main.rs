@@ -92,6 +92,41 @@ fn scan_code(code: &str) -> Vec<Token> {
             continue; 
         }
 
+        if graphemes[i] == "=" {
+            if i + 1 < graphemes.len() && graphemes[i+1] == "=" {
+                if i + 2 < graphemes.len() && graphemes[i+2] == "=" {
+                    if i + 3 < graphemes.len() && graphemes[i+3] == "=" {
+                        if i + 4 < graphemes.len() && graphemes[i+4] == "=" {
+                            if i + 5 < graphemes.len() && graphemes[i+5] == "=" {
+                                tokens.push(Token { value: "".to_string(), token_type: TokenType::EQUAL6 });
+                                i+=6;
+                                continue;
+                            }
+
+                            tokens.push(Token { value: "".to_string(), token_type: TokenType::EQUAL5 });
+                            i+=5;
+                            continue;
+                        }
+
+                        tokens.push(Token { value: "".to_string(), token_type: TokenType::EQUAL4 });
+                        i+=4;
+                        continue;
+                    }
+
+                    tokens.push(Token { value: "".to_string(), token_type: TokenType::EQUAL3 });
+                    i+=3;
+                    continue;
+                }
+
+                tokens.push(Token { value: "".to_string(), token_type: TokenType::EQUAL2 });
+                i+=2;
+                continue; 
+            }
+            tokens.push(Token { value: "".to_string(), token_type: TokenType::EQUAL1 });
+            i+=1;
+            continue; 
+        }
+
         i+=1;
     }
 
