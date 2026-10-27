@@ -508,10 +508,8 @@ fn parse_code(tokens: Vec<Token>) -> Vec<Entity> {
                 let mut text = String::from("");
                 while i + 1 < tokens.len() && tokens[i+1].token_type != TokenType::NEWLINE {
                     text += &tokens[i].value;
-                    println!("VALUE{}", &tokens[i].value);
                     i+=1;
                 }
-                println!("TEXT{},", text);
                 entities.push(Entity { value: text, entity_type: EntityType::Paragraph });
                 i+=1;
                 continue;
