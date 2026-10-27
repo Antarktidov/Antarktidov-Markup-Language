@@ -523,7 +523,7 @@ fn parse_code(tokens: Vec<Token>) -> Vec<Entity> {
 
     return entities;
 }
-
+#[derive(PartialEq)]
 enum TokenTypeLevel2 {
     DoubleOpeningBrackets,
     DoubleClosingBrackets,
@@ -537,7 +537,7 @@ enum TokenTypeLevel2 {
     RUFile,
     Other,
 }
-
+#[derive(PartialEq)]
 struct TokenLevel2 {
     value: String,
     token_type: TokenTypeLevel2,
@@ -607,6 +607,7 @@ fn scan_l2(line: &str) -> Vec<TokenLevel2> {
     return tokens;
 }
 
+#[derive(PartialEq)]
 enum EntityTypeLevel2 {
     WikiLink,
     WikiLinkWithText,
@@ -616,14 +617,69 @@ enum EntityTypeLevel2 {
     Other,
 }
 
+#[derive(PartialEq)]
 struct EntityLevel2 {
     value1: String,
     value2: String,
     entity_type: EntityTypeLevel2,
-
 }
 
+fn parse_l2(tokens: Vec<TokenLevel2>) -> Vec<EntityLevel2> {
+    let mut entities: Vec<EntityLevel2> = vec![];
+    let mut i = 0;
 
+    while i < tokens.len() {
+        if tokens[i].token_type == TokenTypeLevel2::DoubleOpeningBrackets {
+            let mut val1 = String::from("");
+            i+=1;
+            while i < tokens.len() && 
+            (tokens[i].token_type != TokenTypeLevel2::DoubleClosingBrackets ||
+            tokens[i].token_type != TokenTypeLevel2::Split) {
+                val1 += &tokens[i].value;
+                i+=1;
+            }
+            if tokens[i].token_type == TokenTypeLevel2::Split {
+                let mut val2 = String::from("");
+                i+=1;
+                while i < tokens.len() && tokens[i].token_type != TokenTypeLevel2::DoubleClosingBrackets {
+                    val2 += &tokens[i].value;
+                    i+=1;
+                }
+
+                entities.push(EntityLevel2 { value1: val1, value2: val2, entity_type: EntityTypeLevel2::WikiLinkWithText });
+                i+=1;
+                continue;
+            }
+
+            entities.push(EntityLevel2 { value1: val1, value2: "".to_string(), entity_type: EntityTypeLevel2::WikiLink });
+            i+=1;
+            continue;
+        }
+        else if tokens[i].token_type == TokenTypeLevel2::OpeningBrackets {
+            let mut val1 = String::from("");
+            i+=1;
+            while i < tokens.len() && tokens[i].token_type != TokenTypeLevel2::ClosingBrackets {
+                val1 += &tokens[i].value;
+                i+=1;
+            }
+            if tokens[i].token_type == TokenTypeLevel2::OpeningRoundBraces {
+                let mut val2 = String::from("");
+                i+=1;
+                while i < tokens.len() && tokens[i].token_type != TokenTypeLevel2::ClosingRoundBraces {
+                    val2 += &tokens[i].value;
+                    i+=1;
+                }
+                entities.push(EntityLevel2 { value1: val1, value2: val2, entity_type: EntityTypeLevel2::MarkdownLink });
+                i+=1;
+                continue;
+            }
+        }
+
+        i+=1;
+    }
+
+    return entities;
+}
 
 fn main() {
     let code = read_code_from_file();
