@@ -521,6 +521,7 @@ fn parse_code(tokens: Vec<Token>) -> Vec<Entity> {
 
     return entities;
 }
+#[derive(Debug)]
 #[derive(PartialEq)]
 enum TokenTypeLevel2 {
     DoubleOpeningBrackets,
@@ -535,6 +536,7 @@ enum TokenTypeLevel2 {
     RUFile,
     Other,
 }
+#[derive(Debug)]
 #[derive(PartialEq)]
 struct TokenLevel2 {
     value: String,
@@ -605,6 +607,7 @@ fn scan_l2(line: &str) -> Vec<TokenLevel2> {
     return tokens;
 }
 
+#[derive(Debug)]
 #[derive(PartialEq)]
 enum EntityTypeLevel2 {
     WikiLink,
@@ -615,6 +618,7 @@ enum EntityTypeLevel2 {
     Other,
 }
 
+#[derive(Debug)]
 #[derive(PartialEq)]
 struct EntityLevel2 {
     value1: String,
@@ -707,5 +711,11 @@ fn main() {
     let code = read_code_from_file();
     let tokens: Vec<Token> = scan_code(&code.unwrap());
     let entities: Vec<Entity> = parse_code(tokens);
-    println!("{:?}", entities);
+    
+    for entity in entities {
+        let entity_sub_tokens = scan_l2(&entity.value);
+        let mut entity_sub_entities = parse_l2(entity_sub_tokens);
+        println!("{:?}", entity_sub_entities);
+        println!("");
+    }
 }
