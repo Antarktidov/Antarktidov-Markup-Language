@@ -694,6 +694,7 @@ fn parse_l2(tokens: Vec<TokenLevel2>) -> Vec<EntityLevel2> {
             i+=1;
             while i < tokens.len() && tokens[i].token_type != TokenTypeLevel2::DoubleClosingBrackets {
                 filename += &tokens[i].value;
+                i+=1;
             }
 
             entities.push(EntityLevel2 { value1: filename, value2: "".to_string(), entity_type: EntityTypeLevel2::WikiFile });
