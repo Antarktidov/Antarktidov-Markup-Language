@@ -34,12 +34,19 @@ enum TokenType {
     EQUAL5,
     EQUAL6,
 
-    H1,
-    H2,
-    H3,
-    H4,
-    H5,
-    H6,
+    OpeningH1,
+    OpeningH2,
+    OpeningH3,
+    OpeningH4,
+    OpeningH5,
+    OpeningH6,
+
+    ClosingH1,
+    ClosingH2,
+    ClosingH3,
+    ClosingH4,
+    ClosingH5,
+    ClosingH6,
 
     STAR,
     NEWLINE,
@@ -125,6 +132,77 @@ fn scan_code(code: &str) -> Vec<Token> {
             tokens.push(Token { value: "".to_string(), token_type: TokenType::EQUAL1 });
             i+=1;
             continue; 
+        }
+
+        if graphemes[i] == "<" {
+            if i + 4 < graphemes.len() && graphemes[i+1] == "/" && 
+            (graphemes[i+2] == "h" || graphemes[i+2] == "H") &&
+            graphemes[i+4] == ">" {
+                if graphemes[i+3] == "1" {
+                    tokens.push(Token { value: "".to_string(), token_type:  TokenType::ClosingH1 });
+                    i+=4;
+                    continue;
+                }
+                if graphemes[i+3] == "2" {
+                    tokens.push(Token { value: "".to_string(), token_type:  TokenType::ClosingH2 });
+                    i+=4;
+                    continue;
+                }
+                if graphemes[i+3] == "3" {
+                    tokens.push(Token { value: "".to_string(), token_type:  TokenType::ClosingH3 });
+                    i+=4;
+                    continue;
+                }
+                if graphemes[i+3] == "4" {
+                    tokens.push(Token { value: "".to_string(), token_type:  TokenType::ClosingH4 });
+                    i+=4;
+                    continue;
+                }
+                if graphemes[i+3] == "5" {
+                    tokens.push(Token { value: "".to_string(), token_type:  TokenType::ClosingH5 });
+                    i+=4;
+                    continue;
+                }
+                if graphemes[i+3] == "6" {
+                    tokens.push(Token { value: "".to_string(), token_type:  TokenType::ClosingH6 });
+                    i+=4;
+                    continue;
+                }
+            }
+            if i + 3 < graphemes.len() &&
+            (graphemes[i+1] == "h" || graphemes[i+1] == "H") &&
+            graphemes[i+3] == ">" {
+               if graphemes[i+2] == "1" {
+                    tokens.push(Token { value: "".to_string(), token_type:  TokenType::OpeningH1 });
+                    i+=3;
+                    continue;
+                }
+                if graphemes[i+2] == "2" {
+                    tokens.push(Token { value: "".to_string(), token_type:  TokenType::OpeningH2 });
+                    i+=3;
+                    continue;
+                }
+                if graphemes[i+2] == "3" {
+                    tokens.push(Token { value: "".to_string(), token_type:  TokenType::OpeningH3 });
+                    i+=3;
+                    continue;
+                }
+                if graphemes[i+2] == "4" {
+                    tokens.push(Token { value: "".to_string(), token_type:  TokenType::OpeningH4 });
+                    i+=3;
+                    continue;
+                }
+                if graphemes[i+2] == "5" {
+                    tokens.push(Token { value: "".to_string(), token_type:  TokenType::OpeningH5 });
+                    i+=3;
+                    continue;
+                }
+                if graphemes[i+2] == "6" {
+                    tokens.push(Token { value: "".to_string(), token_type:  TokenType::OpeningH6 });
+                    i+=3;
+                    continue;
+                } 
+            }
         }
 
         i+=1;
