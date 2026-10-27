@@ -256,6 +256,68 @@ fn parse_code(tokens: Vec<Token>) -> Vec<Entity> {
                     value += &tokens[i].value;
                     i+=1;
                 }
+                entities.push(Entity { value, entity_type: EntityType::Heading1 });
+                continue;
+            }
+        }
+
+        if tokens[i].token_type == TokenType::SHARP2 {
+            if tokens[i-1].token_type == TokenType::NEWLINE {
+                let mut value = String::from("");
+                while i+1 < tokens.len() && tokens[i+1].token_type == TokenType::NEWLINE {
+                    value += &tokens[i].value;
+                    i+=1;
+                }
+                entities.push(Entity { value, entity_type: EntityType::Heading2 });
+                continue;
+            }
+        }
+
+        if tokens[i].token_type == TokenType::SHARP3 {
+            if tokens[i-1].token_type == TokenType::NEWLINE {
+                let mut value = String::from("");
+                while i+1 < tokens.len() && tokens[i+1].token_type == TokenType::NEWLINE {
+                    value += &tokens[i].value;
+                    i+=1;
+                }
+                entities.push(Entity { value, entity_type: EntityType::Heading3 });
+                continue;
+            }
+        }
+
+        if tokens[i].token_type == TokenType::SHARP4 {
+            if tokens[i-1].token_type == TokenType::NEWLINE {
+                let mut value = String::from("");
+                while i+1 < tokens.len() && tokens[i+1].token_type == TokenType::NEWLINE {
+                    value += &tokens[i].value;
+                    i+=1;
+                }
+                entities.push(Entity { value, entity_type: EntityType::Heading4 });
+                continue;
+            }
+        }
+
+        if tokens[i].token_type == TokenType::SHARP5 {
+            if tokens[i-1].token_type == TokenType::NEWLINE {
+                let mut value = String::from("");
+                while i+1 < tokens.len() && tokens[i+1].token_type == TokenType::NEWLINE {
+                    value += &tokens[i].value;
+                    i+=1;
+                }
+                entities.push(Entity { value, entity_type: EntityType::Heading5 });
+                continue;
+            }
+        }
+
+        if tokens[i].token_type == TokenType::SHARP6 {
+            if tokens[i-1].token_type == TokenType::NEWLINE {
+                let mut value = String::from("");
+                while i+1 < tokens.len() && tokens[i+1].token_type == TokenType::NEWLINE {
+                    value += &tokens[i].value;
+                    i+=1;
+                }
+                entities.push(Entity { value, entity_type: EntityType::Heading6 });
+                continue;
             }
         }
 
