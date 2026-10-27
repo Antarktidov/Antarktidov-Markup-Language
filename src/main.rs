@@ -607,6 +607,24 @@ fn scan_l2(line: &str) -> Vec<TokenLevel2> {
     return tokens;
 }
 
+enum EntityTypeLevel2 {
+    WikiLink,
+    WikiLinkWithText,
+    MarkdownLink,
+    RUWikiFile,
+    MarkdownImg,
+    Other,
+}
+
+struct EntityLevel2 {
+    value1: String,
+    value2: String,
+    entity_type: EntityTypeLevel2,
+
+}
+
+
+
 fn main() {
     let code = read_code_from_file();
     let tokens: Vec<Token> = scan_code(&code.unwrap());
