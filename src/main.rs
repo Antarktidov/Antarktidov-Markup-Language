@@ -3,6 +3,8 @@ use std::{env, fs::File};
 use std::io::Read;
 use unicode_segmentation::UnicodeSegmentation;
 
+const DOMAIN: &str = "https://example.com/wiki/";
+
 fn read_code_from_file() -> std::io::Result<(String)> {
     let args: Vec<String> = env::args().collect();
     let args_count = args.iter().count();
@@ -708,6 +710,33 @@ fn parse_l2(tokens: Vec<TokenLevel2>) -> Vec<EntityLevel2> {
     return entities;
 }
 
+fn compile_l2(entities: Vec<EntityLevel2>) -> String {
+    let mut compiled_line = String::from("");
+
+    for entity in entities {
+        if entity.entity_type == EntityTypeLevel2::WikiLink {
+            compiled_line += &format!("<a href=\"{}/{}\">{}</a>", DOMAIN, entity.value1, entity.value1);
+        }
+        else if entity.entity_type == EntityTypeLevel2::WikiLinkWithText {
+            compiled_line += &format!("<a href=\"{}/{}\">{}</a>", DOMAIN, entity.value1, entity.value2);
+        }
+        else if entity.entity_type == EntityTypeLevel2::MarkdownLink {
+            compiled_line += &format!("<a href=\"{}\">{}</a>", entity.value1, entity.value2);
+        }
+        else if entity.entity_type == EntityTypeLevel2::AmlImg {
+            compiled_line += &format!("<img src=\"{}\">", entity.value1);
+        }
+        else if entity.entity_type == EntityTypeLevel2::AmlImg {
+            compiled_line += &format!("<img src=\"{}\">", entity.value1);
+        }
+        else if entity.entity_type == EntityTypeLevel2::WikiFile {
+            compiled_line += &format!("<img src=\"{}/File:{}\">", DOMAIN, entity.value1);
+        }
+    }
+
+    return compiled_line;
+}
+
 fn main() {
     let code = read_code_from_file();
     let tokens: Vec<Token> = scan_code(&code.unwrap());
@@ -715,8 +744,8 @@ fn main() {
     
     for entity in entities {
         let entity_sub_tokens = scan_l2(&entity.value);
-        let mut entity_sub_entities = parse_l2(entity_sub_tokens);
-        println!("{:?}", entity_sub_entities);
-        println!("");
+        let entity_sub_entities = parse_l2(entity_sub_tokens);
+        let compiled_entity_value = compile_l2(entity_sub_entities);
+        println!("{}", compiled_entity_value);
     }
 }
