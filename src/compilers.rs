@@ -1,0 +1,92 @@
+use crate::{parser::{Entity, EntityType}, parser_level2::{EntityLevel2, EntityTypeLevel2}};
+
+const DOMAIN: &str = "https://example.com/wiki";
+
+pub fn compile_l2(entities: Vec<EntityLevel2>) -> String {
+    let mut compiled_line = String::from("");
+
+    for entity in entities {
+        if entity.entity_type == EntityTypeLevel2::WikiLink {
+            compiled_line += &format!("<a href=\"{}/{}\">{}</a>", DOMAIN, entity.value1, entity.value1);
+        }
+        else if entity.entity_type == EntityTypeLevel2::WikiLinkWithText {
+            compiled_line += &format!("<a href=\"{}/{}\">{}</a>", DOMAIN, entity.value1, entity.value2);
+        }
+        else if entity.entity_type == EntityTypeLevel2::MarkdownLink {
+            compiled_line += &format!("<a href=\"{}\">{}</a>", entity.value1, entity.value2);
+        }
+        else if entity.entity_type == EntityTypeLevel2::AmlImg {
+            compiled_line += &format!("<img src=\"{}\">", entity.value1);
+        }
+        else if entity.entity_type == EntityTypeLevel2::AmlImg {
+            compiled_line += &format!("<img src=\"{}\">", entity.value1);
+        }
+        else if entity.entity_type == EntityTypeLevel2::WikiFile {
+            compiled_line += &format!("<img src=\"{}/File:{}\">", DOMAIN, entity.value1);
+        }
+        else if entity.entity_type == EntityTypeLevel2::Other {
+            compiled_line += &entity.value1;
+        }
+    }
+
+    return compiled_line;
+}
+
+pub fn compile(entities: Vec<Entity>) -> String {
+    let mut output = String::from("");
+    let mut i = 0;
+
+    while i < entities.len() {
+        if entities[i].entity_type == EntityType::Heading1 {
+            output += &format!("<h1>{}</h1>", entities[i].value);
+            i+=1;
+            continue;
+        }
+        else if entities[i].entity_type == EntityType::Heading2 {
+            output += &format!("<h2>{}</h2>", entities[i].value);
+            i+=1;
+            continue;
+        }
+        else if entities[i].entity_type == EntityType::Heading3 {
+            output += &format!("<h3>{}</h3>", entities[i].value);
+            i+=1;
+            continue;
+        }
+        else if entities[i].entity_type == EntityType::Heading4 {
+            output += &format!("<h4>{}</h4>", entities[i].value);
+            i+=1;
+            continue;
+        }
+        else if entities[i].entity_type == EntityType::Heading5 {
+            output += &format!("<h5>{}</h5>", entities[i].value);
+            i+=1;
+            continue;
+        }
+        else if entities[i].entity_type == EntityType::Heading6 {
+            output += &format!("<h6>{}</h6>", entities[i].value);
+            i+=1;
+            continue;
+        }
+
+        else if entities[i].entity_type == EntityType::Paragraph {
+            output += &format!("<p>{}</p>", entities[i].value);
+            i+=1;
+            continue;
+        }
+
+        else if entities[i].entity_type == EntityType::ListItem {
+            output += "<li>";
+            while i < entities.len() && entities[i].entity_type == EntityType::ListItem {
+                output += &format!("<ul>{}</ul>", entities[i].value);
+                i+=1;
+            }
+            output += "</li>";
+            i+=1;
+            continue;
+        }
+
+        i+=1;
+    }
+
+    return output;
+}
