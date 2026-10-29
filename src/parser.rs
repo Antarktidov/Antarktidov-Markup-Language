@@ -28,6 +28,7 @@ pub fn parse_code(tokens: Vec<Token>) -> Vec<Entity> {
         if tokens[i].token_type == TokenType::SHARP1 {
             if tokens[i-1].token_type == TokenType::NEWLINE {
                 let mut value = String::from("");
+                i+=2;
                 while i < tokens.len() && tokens[i].token_type != TokenType::NEWLINE {
                     value += &tokens[i].value;
                     i+=1;
@@ -41,6 +42,7 @@ pub fn parse_code(tokens: Vec<Token>) -> Vec<Entity> {
         else if tokens[i].token_type == TokenType::SHARP2 {
             if tokens[i-1].token_type == TokenType::NEWLINE {
                 let mut value = String::from("");
+                i+=2;
                 while i < tokens.len() && tokens[i].token_type != TokenType::NEWLINE {
                     value += &tokens[i].value;
                     i+=1;
@@ -54,6 +56,7 @@ pub fn parse_code(tokens: Vec<Token>) -> Vec<Entity> {
         else if tokens[i].token_type == TokenType::SHARP3 {
             if tokens[i-1].token_type == TokenType::NEWLINE {
                 let mut value = String::from("");
+                i+=2;
                 while i < tokens.len() && tokens[i].token_type != TokenType::NEWLINE {
                     value += &tokens[i].value;
                     i+=1;
@@ -68,6 +71,7 @@ pub fn parse_code(tokens: Vec<Token>) -> Vec<Entity> {
         else if tokens[i].token_type == TokenType::SHARP4 {
             if tokens[i-1].token_type == TokenType::NEWLINE {
                 let mut value = String::from("");
+                i+=2;
                 while i < tokens.len() && tokens[i].token_type != TokenType::NEWLINE {
                     value += &tokens[i].value;
                     i+=1;
@@ -81,6 +85,7 @@ pub fn parse_code(tokens: Vec<Token>) -> Vec<Entity> {
         else if tokens[i].token_type == TokenType::SHARP5 {
             if tokens[i-1].token_type == TokenType::NEWLINE {
                 let mut value = String::from("");
+                i+=2;
                 while i < tokens.len() && tokens[i].token_type != TokenType::NEWLINE {
                     value += &tokens[i].value;
                     i+=1;
@@ -94,6 +99,7 @@ pub fn parse_code(tokens: Vec<Token>) -> Vec<Entity> {
         else if tokens[i].token_type == TokenType::SHARP6 {
             if tokens[i-1].token_type == TokenType::NEWLINE {
                 let mut value = String::from("");
+                i+=2;
                 while i < tokens.len() && tokens[i].token_type != TokenType::NEWLINE {
                     value += &tokens[i].value;
                     i+=1;
