@@ -11,7 +11,9 @@ mod parser;
 mod scanner_level2;
 mod parser_level2;
 mod compilers;
+use dotenv::dotenv;
 fn main() {
+    dotenv().ok();
     let code = filesystem::read_code_from_file();
     let tokens: Vec<scanner::Token> = scanner::scan_code(&code.unwrap());
     let entities: Vec<parser::Entity> = parser::parse_code(tokens);
