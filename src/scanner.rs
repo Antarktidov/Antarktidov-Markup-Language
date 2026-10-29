@@ -34,6 +34,9 @@ pub enum TokenType {
     STAR,
     NEWLINE,
     OTHER,
+
+    OpeningTemplate,
+    ClosingTemplate,
 }
 
 #[derive(PartialEq)]
@@ -200,6 +203,22 @@ pub fn scan_code(code: &str) -> Vec<Token> {
             tokens.push(Token { value: "".to_string(), token_type: TokenType::NEWLINE });
             i+=1;
             continue;
+        }
+
+        if graphemes[i] == "{" {
+            if i+1 < graphemes.iter().count() && graphemes[i+1] == "{"  {
+                tokens.push(Token { value: "".to_string(), token_type: TokenType::OpeningTemplate });
+                i+=2;
+                continue;
+            }
+        }
+
+        if graphemes[i] == "}" {
+            if i+1 < graphemes.iter().count() && graphemes[i+1] == "}"  {
+                tokens.push(Token { value: "".to_string(), token_type: TokenType::ClosingTemplate });
+                i+=2;
+                continue;
+            }
         }
 
         tokens.push(Token { value: graphemes[i].to_string(), token_type: TokenType::OTHER });

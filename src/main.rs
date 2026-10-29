@@ -3,7 +3,7 @@ use std::io::Read;
 use unicode_segmentation::UnicodeSegmentation;
 use std::io::prelude::*;
 
-use crate::parser::Entity;
+use crate::parser::{Entity, EntityType};
 
 mod filesystem;
 mod scanner;
@@ -21,6 +21,11 @@ fn main() {
     let mut compiled_entities: Vec<parser::Entity> = vec![];
     
     for entity in entities {
+        if entity.entity_type == EntityType::Template {
+            compiled_entities.push(Entity { value: entity.value, entity_type: entity.entity_type });
+            continue;
+        }
+
         let entity_sub_tokens = scanner_level2::scan_l2(&entity.value);
         let entity_sub_entities = parser_level2::parse_l2(entity_sub_tokens);
         let compiled_entity_value = compilers::compile_l2(entity_sub_entities);

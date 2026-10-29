@@ -25,3 +25,10 @@ pub fn write_file(output: &str) -> std::io::Result<()> {
     file.write_all(output.as_bytes())?;
     Ok(())
 }
+pub fn read_template_code_from_file(template_addr: &str) -> std::io::Result<(String)> {
+    let mut file = File::open(template_addr)?;
+
+    let mut code = String::new();
+    file.read_to_string(&mut code)?;
+    return Ok(code);
+}
