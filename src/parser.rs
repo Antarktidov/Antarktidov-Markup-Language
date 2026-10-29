@@ -5,7 +5,7 @@ use crate::scanner::TokenType;
 #[derive(Debug)]
 pub enum EntityType {
     Template,
-    
+
     ListItem,
     Paragraph,
     Heading1,
@@ -293,7 +293,6 @@ pub fn parse_code(tokens: Vec<Token>) -> Vec<Entity> {
         else if tokens[i].token_type == TokenType::OpeningTemplate {
             if tokens[i-1].token_type == TokenType::NEWLINE {
                 let mut value = String::from("");
-                i+=2;
                 while i < tokens.len() && tokens[i].token_type != TokenType::ClosingTemplate {
                     value += &tokens[i].value;
                     i+=1;
