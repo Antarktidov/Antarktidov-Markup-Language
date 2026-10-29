@@ -1,5 +1,5 @@
 use crate::{parser::{Entity, EntityType}, parser_level2::{EntityLevel2, EntityTypeLevel2}};
-use std::{env, process::Command};
+use std::{env, fs::File, io::Read, process::Command};
 
 pub fn compile_l2(entities: Vec<EntityLevel2>) -> String {
     let mut compiled_line = String::from("");
@@ -91,13 +91,16 @@ pub fn compile(entities: Vec<Entity>) -> String {
             let tmpl = format!("templates/{}.taml", entities[i].value);
             let out  = format!("templates-html/{}.html", entities[i].value);
 
-            let output = Command::new(&args[0])
+            let output2 = Command::new(&args[0])
                 .arg(&tmpl)
                 .arg(&out)
                 .output()
                 .expect(&format!("Failed to compile template {}", entities[i].value));
 
-            println!("{:?}", output);
+            println!("{:?}", output2);
+
+            let template_code = crate::filesystem::read_template_code_from_file(&out);
+            output += &template_code.unwrap();
         }
 
         i+=1;
