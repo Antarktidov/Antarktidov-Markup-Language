@@ -88,10 +88,12 @@ pub fn compile(entities: Vec<Entity>) -> String {
         else if entities[i].entity_type == EntityType::Template {
             let args: Vec<String> = env::args().collect();
 
-            Command::new(&args[0])
-            .arg(format!("\"templates/{}.taml\" \"templates-html/{}.html\"", entities[i].value, entities[i].value))
+            let output = Command::new(&args[0])
+            .arg(format!("\"templates/{}.taml\" templates-html/{}.html\"", entities[i].value, entities[i].value))
             .output()
             .expect(&format!("Failed to compile template {}", entities[i].value));
+
+            println!("{}", String::from_utf8(output.stdout).unwrap());
         }
 
         i+=1;
