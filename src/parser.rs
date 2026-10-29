@@ -277,7 +277,7 @@ pub fn parse_code(tokens: Vec<Token>) -> Vec<Entity> {
         else if tokens[i].token_type == TokenType::STAR {
             if tokens[i-1].token_type == TokenType::NEWLINE {
                 let mut value = String::from("");
-                while i+1 < tokens.len() && tokens[i+1].token_type != TokenType::NEWLINE {
+                while i < tokens.len() && tokens[i].token_type != TokenType::NEWLINE {
                     value += &tokens[i].value;
                     i+=1;
                 }
@@ -288,7 +288,7 @@ pub fn parse_code(tokens: Vec<Token>) -> Vec<Entity> {
         } else {
             if i >= 1 && tokens[i-1].token_type == TokenType::NEWLINE {
                 let mut text = String::from("");
-                while i + 1 < tokens.len() && tokens[i+1].token_type != TokenType::NEWLINE {
+                while i < tokens.len() && tokens[i].token_type != TokenType::NEWLINE {
                     text += &tokens[i].value;
                     i+=1;
                 }
