@@ -1,5 +1,5 @@
 use crate::{parser::{Entity, EntityType}, parser_level2::{EntityLevel2, EntityTypeLevel2}};
-use std::env;
+use std::{env, process::Command};
 
 pub fn compile_l2(entities: Vec<EntityLevel2>) -> String {
     let mut compiled_line = String::from("");
@@ -83,6 +83,15 @@ pub fn compile(entities: Vec<Entity>) -> String {
             output += "</li>";
             i+=1;
             continue;
+        }
+
+        else if entities[i].entity_type == EntityType::Template {
+            let args: Vec<String> = env::args().collect();
+
+            Command::new(&args[0])
+            .arg(format!("\"templates/{}.taml\" \"templates-html/{}.html\"", entities[i].value, entities[i].value))
+            .output()
+            .expect(&format!("Failed to compile template {}", entities[i].value));
         }
 
         i+=1;

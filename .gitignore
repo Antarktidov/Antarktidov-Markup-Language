@@ -2,3 +2,5 @@
 *.aml
 *html
 .env
+*.taml
+/templates
