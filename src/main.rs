@@ -50,6 +50,12 @@ fn main() {
             continue;
         }
 
+        if entity.entity_type == EntityType::Gallery {
+            let entity_sub_tokens = scan_gallery::scan(&entity.value);
+            let entity_sub_entities = parse_galley::parse(entity_sub_tokens);
+            continue;
+        }
+
         let entity_sub_tokens = scanner_level2::scan_l2(&entity.value);
         let entity_sub_entities = parser_level2::parse_l2(entity_sub_tokens);
         let compiled_entity_value = compilers::compile_l2(entity_sub_entities);
