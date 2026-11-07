@@ -8,9 +8,13 @@ pub fn compile_infobox(entities: Vec<InfoboxEntity>) -> String {
     let mut infobox_html = String::from("<table class=\"aml-infobox\">");
     let mut i = 0;
     while i < entities.len() {
-        if entities[i].left_value == "Изображение" {
+        if entities[i].left_value == "Изображение" || entities[i].left_value == "\r\nИзображение" {
             infobox_html += &format!("<tr><td colspan=\"2\"><img src={}/File/{}></td></tr>", domain, entities[i].right_value);
-        } else {
+        }
+        else if entities[i].left_value == "Title" || entities[i].left_value == "\r\nTitle" {
+            infobox_html += &format!("<tr><td colspan=\"2\">{}</td></tr>", entities[i].right_value);
+        }
+         else {
             let right_value = &entities[i].right_value;
             if right_value.starts_with("*") || right_value.starts_with("\r\n*") {
                 println!("**********");
