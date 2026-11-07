@@ -28,3 +28,16 @@ table.aml-infobox th {
 .aml-infobox-title {
     text-align: center;
 }
+.tabs {
+    display: flex;
+    flex-direction: row;
+}
+table.aml-infobox .tab {
+    padding: 1rem;
+    border: 1px solid;
+    width: fit-content;
+}
+.active-tab {
+    font-weight: bold;
+    border: 2px;
+}
