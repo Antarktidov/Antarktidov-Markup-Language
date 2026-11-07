@@ -10,9 +10,9 @@ pub enum InfoboxEntityType {
 #[derive(PartialEq)]
 #[derive(Debug)]
 pub struct InfoboxEntity {
-    entity_type: InfoboxEntityType,
-    left_value: String,
-    right_value: String,
+    pub entity_type: InfoboxEntityType,
+    pub left_value: String,
+    pub right_value: String,
 }
 pub fn parse_infobox(tokens: Vec<InfoboxToken>) -> Vec<InfoboxEntity> {
     let mut entities: Vec<InfoboxEntity> = vec![];
