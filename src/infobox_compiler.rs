@@ -11,8 +11,9 @@ pub fn compile_infobox(entities: Vec<InfoboxEntity>) -> String {
         if entities[i].left_value == "Изображение" {
             infobox_html += &format!("<tr><td colspan=\"2\"><img src={}/File/{}></td></tr>", domain, entities[i].right_value);
         } else {
-            let mut right_value = &entities[i].right_value;
-            if right_value == "*" {
+            let right_value = &entities[i].right_value;
+            if right_value.starts_with("*") || right_value.starts_with("\r\n*") {
+                println!("**********");
                 let il_tokens = scan_infoboxes_lists::scanner(right_value);
                 let il_items = parse_infoboxes_lists::parse(il_tokens);
                 let nrv = compile_infobox_list::compile_il(il_items);

@@ -5,6 +5,8 @@ pub fn compile_il(list_items: Vec<String>) -> String {
         output += &format!("<li>{}</li>", list_items[i]);
     }
 
+    println!("Compile infobox list");
+
     output += &"<ul>".to_string();
     return output;
 }
