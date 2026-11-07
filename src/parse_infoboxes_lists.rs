@@ -8,6 +8,7 @@ pub fn parse(tokens: Vec<ILToken>) -> Vec<String> {
         if tokens[i].token_type == ILTokenType::STAR {
             if tokens[i-1].token_type == ILTokenType::NEWLINE {
                 let mut item = String::from("");
+                i+=2;
                 while i < tokens.len() && tokens[i].token_type != ILTokenType::NEWLINE {
                     item+= &tokens[i].value;
                     i+=1;

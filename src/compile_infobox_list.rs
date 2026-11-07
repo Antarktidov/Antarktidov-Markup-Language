@@ -3,6 +3,7 @@ pub fn compile_il(list_items: Vec<String>) -> String {
     let mut i = 0;
     while i < list_items.len() {
         output += &format!("<li>{}</li>", list_items[i]);
+        i+=1;
     }
 
     println!("Compile infobox list");
