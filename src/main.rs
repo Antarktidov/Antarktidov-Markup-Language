@@ -11,6 +11,10 @@ mod parser;
 mod scanner_level2;
 mod parser_level2;
 mod compilers;
+
+mod infobox_scanner;
+mod infobox_parser;
+
 use dotenv::dotenv;
 fn main() {
     dotenv().ok();
@@ -31,6 +35,8 @@ fn main() {
         if entity.entity_type == EntityType::Infobox {
             println!("{}", entity.value);
             //scan, parse, compile infobox
+            let entity_sub_tokens = infobox_scanner::scan_infobox(&entity.value);
+            let entity_sub_entities = infobox_parser::parse_infobox(entity_sub_tokens);
             continue;
         }
 

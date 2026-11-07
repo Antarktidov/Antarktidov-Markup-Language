@@ -1,16 +1,23 @@
+use unicode_segmentation::UnicodeSegmentation;
+
+#[derive(PartialEq)]
+#[derive(Debug)]
 pub enum InfoboxTokenType {
     Split,
     Equal,
     Other,
 }
+
+#[derive(PartialEq)]
+#[derive(Debug)]
 pub struct InfoboxToken {
-    token_type: InfoboxTokenType,
-    value: String,
+    pub token_type: InfoboxTokenType,
+    pub value: String,
 }
 
-pub fn scan_infobox(infobox: &str) -> vec<InfoboxToken> {
-    let mut tokens: vec<InfoboxToken> = vec![];
-    let mut graphemes: Vec<&str> = line.graphemes(true).collect();
+pub fn scan_infobox(infobox: &str) -> Vec<InfoboxToken> {
+    let mut tokens: Vec<InfoboxToken> = vec![];
+    let mut graphemes: Vec<&str> = infobox.graphemes(true).collect();
     let mut i = 0;
     while i < graphemes.iter().count() {
         if graphemes[i] == "=" {
@@ -23,7 +30,7 @@ pub fn scan_infobox(infobox: &str) -> vec<InfoboxToken> {
         }
         else if graphemes[i] == "|" {
             tokens.push({InfoboxToken{
-                token_type: InfoboxToken::Split,
+                token_type: InfoboxTokenType::Split,
                 value: "|".to_string(),
             }});
             i+=1;
@@ -31,8 +38,8 @@ pub fn scan_infobox(infobox: &str) -> vec<InfoboxToken> {
         }
         else {
             tokens.push({InfoboxToken{
-                token_type: InfoboxToken::Other,
-                value: graphemes[i],
+                token_type: InfoboxTokenType::Other,
+                value: graphemes[i].to_string(),
             }});
             i+=1;
             continue;
