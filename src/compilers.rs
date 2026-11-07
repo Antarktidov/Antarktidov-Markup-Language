@@ -89,6 +89,8 @@ pub fn compile(entities: Vec<Entity>) -> String {
         else if entities[i].entity_type == EntityType::Template {
             let args: Vec<String> = env::args().collect();
 
+            println!("{}", entities[i].value);
+
             let tmpl = format!("templates/{}.taml", entities[i].value);
             let out  = format!("templates-html/{}.html", entities[i].value);
 
