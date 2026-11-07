@@ -34,7 +34,10 @@ pub fn compile_l2(entities: Vec<EntityLevel2>) -> String {
 
 pub fn compile(entities: Vec<Entity>) -> String {
     let mut output = String::from("");
+
     let mut is_document_has_infoboxes = false;
+    let mut is_document_has_galleries = false;
+
     let mut i = 0;
 
     while i < entities.len() {
@@ -111,12 +114,22 @@ pub fn compile(entities: Vec<Entity>) -> String {
             is_document_has_infoboxes = true;
         }
 
+        else if entities[i].entity_type == EntityType::Gallery {
+            output += &entities[i].value;
+            is_document_has_galleries = true;
+        }
+
         i+=1;
     }
 
     if is_document_has_infoboxes {
-        let infobox_css = include_str!("css/infobox.css");
-        output += &format!("<style>{}</style>", infobox_css);
+        let css = include_str!("css/infobox.css");
+        output += &format!("<style>{}</style>", css);
+    }
+
+    if is_document_has_galleries {
+        let css = include_str!("css/gallery.css");
+        output += &format!("<style>{}</style>", css);
     }
 
     return output;

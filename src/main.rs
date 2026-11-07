@@ -23,6 +23,7 @@ mod compile_infobox_list;
 mod scan_gallery;
 mod parse_galley;
 mod compile_infobox_gallery;
+mod compile_gallery;
 
 use dotenv::dotenv;
 fn main() {
@@ -46,6 +47,14 @@ fn main() {
             let entity_sub_tokens = infobox_scanner::scan_infobox(&entity.value);
             let entity_sub_entities = infobox_parser::parse_infobox(entity_sub_tokens);
             let compiled_entity_value = infobox_compiler::compile_infobox(entity_sub_entities);
+            compiled_entities.push(Entity { value: compiled_entity_value, entity_type: entity.entity_type });
+            continue;
+        }
+
+        if entity.entity_type == EntityType::Gallery {
+            let entity_sub_tokens = scan_gallery::scan(&entity.value);
+            let entity_sub_entities = parse_galley::parse(entity_sub_tokens);
+            let compiled_entity_value = compile_gallery::compile(entity_sub_entities);
             compiled_entities.push(Entity { value: compiled_entity_value, entity_type: entity.entity_type });
             continue;
         }

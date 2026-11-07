@@ -15,6 +15,8 @@ pub enum EntityType {
     Heading4,
     Heading5,
     Heading6,
+
+    Gallery,
 }
 #[derive(PartialEq)]
 #[derive(Debug)]
@@ -314,6 +316,20 @@ pub fn parse_code(tokens: Vec<Token>) -> Vec<Entity> {
                     i+=1;
                 }
                 entities.push(Entity { value, entity_type: EntityType::Template });
+                i+=1;
+                continue;
+            }
+        }
+
+        else if tokens[i].token_type == TokenType::GalleryOpen {
+            if tokens[i-1].token_type == TokenType::NEWLINE {
+                let mut value = String::from("");
+                i+=1;
+                while i < tokens.len() && tokens[i].token_type != TokenType::GalleryClose {
+                    value += &tokens[i].value;
+                    i+=1;
+                }
+                entities.push(Entity { value, entity_type: EntityType::Gallery });
                 i+=1;
                 continue;
             }
