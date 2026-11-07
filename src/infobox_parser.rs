@@ -29,9 +29,17 @@ pub fn parse_infobox(tokens: Vec<InfoboxToken>) -> Vec<InfoboxEntity> {
 
             let mut right_value = String::from("");
             i+=1;
-            while i < tokens.len() && tokens[i].token_type != InfoboxTokenType::Split {
-                right_value += &tokens[i].value;
-                 i+=1;
+
+            if tokens[i].token_type == InfoboxTokenType::GalleryOpen {
+                while i < tokens.len() && tokens[i].token_type != InfoboxTokenType::GalleryClose {
+                    right_value += &tokens[i].value;
+                    i+=1;
+                }
+            } else {
+                while i < tokens.len() && tokens[i].token_type != InfoboxTokenType::Split {
+                    right_value += &tokens[i].value;
+                    i+=1;
+                }
             }
 
             entities.push({InfoboxEntity{
