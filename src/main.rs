@@ -37,6 +37,7 @@ fn main() {
             //scan, parse, compile infobox
             let entity_sub_tokens = infobox_scanner::scan_infobox(&entity.value);
             let entity_sub_entities = infobox_parser::parse_infobox(entity_sub_tokens);
+            println!("{:?}", entity_sub_entities);
             continue;
         }
 
