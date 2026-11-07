@@ -12,7 +12,7 @@ pub fn compile_infobox(entities: Vec<InfoboxEntity>) -> String {
             infobox_html += &format!("<tr><td colspan=\"2\"><img src={}/File/{}></td></tr>", domain, entities[i].right_value);
         }
         else if entities[i].left_value == "Title" || entities[i].left_value == "\r\nTitle" {
-            infobox_html += &format!("<tr><td colspan=\"2\">{}</td></tr>", entities[i].right_value);
+            infobox_html += &format!("<tr><td colspan=\"2\" class=\"aml-infobox-title\">{}</td></tr>", entities[i].right_value);
         }
          else {
             let right_value = &entities[i].right_value;
