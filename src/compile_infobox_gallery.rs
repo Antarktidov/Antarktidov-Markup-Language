@@ -21,9 +21,10 @@ pub fn compile(gallery_items: Vec<GalleryItem>) -> String {
     let mut i = 0;
 
     while i < gallery_items.len() {
-        html_tabs += &format!("<span data-tab-id=\"{}-{}\" class=\"tab-{}\">{}</span>", rand_identifer, i+1, gallery_items[i].caption, rand_identifer);
-        html_imgs += &format!("<img data-tab-img-id=\"{}-{}\" class=\"tab-img-{}\" src=\"{}/{}\" style=\"display: none;\">",
-        rand_identifer, i+1, domain, gallery_items[i].image, rand_identifer);
+        html_tabs += &format!("<span data-tab-id=\"{}-{}\" class=\"tab-{}\">{}</span>",
+        rand_identifer, i+1, rand_identifer, gallery_items[i].caption);
+        html_imgs += &format!("<img data-tab-img-id=\"{}-{}\" class=\"tab-img-{}\" src=\"{}/File/{}\" style=\"display: none;\">",
+        rand_identifer, i+1, rand_identifer, domain, gallery_items[i].image);
 
         i+=1;
     }
@@ -34,15 +35,14 @@ pub fn compile(gallery_items: Vec<GalleryItem>) -> String {
         var tabs = document.querySelectorAll(".tab-{rand_identifer}");
         var tabImgs = document.querySelectorAll(".tab-img-{rand_identifer}");
 
-        tabs[0].style.display = 'unset';
+        tabImgs[0].style.display = 'unset';
 
         tabs.forEach((tab) => {{
             tab.onclick = function() {{
                 tabImgs.forEach((tabImg) => {{
                     tabImg.style.display = 'none';
                 }});
-                document.querySelector(`[data-tab-img-id="${{tab.getAttribute("data-tab-id-{rand_identifer}")}}"]`)
-                .style.display = 'unset';
+                document.querySelector(`[data-tab-img-id="${{tab.getAttribute("data-tab-id")}}"]`).style.display = 'unset';
             }}
         }});
         "#, rand_identifer = rand_identifer);

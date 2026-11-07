@@ -1,5 +1,5 @@
 use crate::infobox_parser::{InfoboxEntity, InfoboxEntityType};
-use crate::{compile_infobox_list, parse_galley, parse_infoboxes_lists, scan_gallery};
+use crate::{compile_infobox_gallery, compile_infobox_list, parse_galley, parse_infoboxes_lists, scan_gallery};
 use crate::scan_infoboxes_lists::{self, *};
 use std::env;
 
@@ -12,10 +12,12 @@ pub fn compile_infobox(entities: Vec<InfoboxEntity>) -> String {
             if entities[i].entity_type == InfoboxEntityType::Gallery {
                 let gallery_tokens = scan_gallery::scan(&entities[i].right_value);
                 let gallery_list_items = parse_galley::parse(gallery_tokens);
-                println!("{:?}", gallery_list_items);
+                println!("gallery_list_items: {:?}", gallery_list_items);
+                let compiled_gallery = compile_infobox_gallery::compile(gallery_list_items);
+                infobox_html += &format!("<tr><td colspan=\"2\">{}</td></tr>", compiled_gallery);
+            } else {
+                infobox_html += &format!("<tr><td colspan=\"2\"><img src={}/File/{}></td></tr>", domain, entities[i].right_value);
             }
-
-            infobox_html += &format!("<tr><td colspan=\"2\"><img src={}/File/{}></td></tr>", domain, entities[i].right_value);
         }
         else if entities[i].left_value == "Title" || entities[i].left_value == "\r\nTitle" {
             infobox_html += &format!("<tr><td colspan=\"2\" class=\"aml-infobox-title\">{}</td></tr>", entities[i].right_value);
