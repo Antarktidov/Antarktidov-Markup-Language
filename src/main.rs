@@ -22,6 +22,7 @@ mod compile_infobox_list;
 
 mod scan_gallery;
 mod parse_galley;
+mod compile_infobox_gallery;
 
 use dotenv::dotenv;
 fn main() {
