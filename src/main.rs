@@ -20,6 +20,9 @@ mod scan_infoboxes_lists;
 mod parse_infoboxes_lists;
 mod compile_infobox_list;
 
+mod scan_gallery;
+mod parse_galley;
+
 use dotenv::dotenv;
 fn main() {
     dotenv().ok();
