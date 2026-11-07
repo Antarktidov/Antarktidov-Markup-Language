@@ -212,7 +212,7 @@ pub fn scan_code(code: &str) -> Vec<Token> {
                 if i+9 < graphemes.iter().count() && graphemes[i+2] == "И" && graphemes[i+3] == "н"
                 && graphemes[i+4] == "ф" && graphemes[i+5] == "о"  && graphemes[i+6] == "б"
                 && graphemes[i+7] == "о" && graphemes[i+8] == "к"  && graphemes[i+9] == "с"
-                && graphemes[i+9] == ":" {
+                && graphemes[i+10] == ":" {
                     tokens.push(Token { value: "".to_string(), token_type: TokenType::OpeningInfobox });
                     i+=10;
                     continue;

@@ -18,11 +18,18 @@ fn main() {
     let tokens: Vec<scanner::Token> = scanner::scan_code(&code.unwrap());
     let entities: Vec<parser::Entity> = parser::parse_code(tokens);
 
+    println!("{:?}", entities);
+
     let mut compiled_entities: Vec<parser::Entity> = vec![];
     
     for entity in entities {
         if entity.entity_type == EntityType::Template {
             compiled_entities.push(Entity { value: entity.value, entity_type: entity.entity_type });
+            continue;
+        }
+
+        if entity.entity_type == EntityType::Infobox {
+            println!("{}", entity.value);
             continue;
         }
 
