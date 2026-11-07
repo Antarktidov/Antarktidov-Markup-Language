@@ -32,6 +32,7 @@ pub fn parse_infobox(tokens: Vec<InfoboxToken>) -> Vec<InfoboxEntity> {
             i+=1;
 
             if tokens[i].token_type == InfoboxTokenType::GalleryOpen {
+                i+=1;
                 while i < tokens.len() && tokens[i].token_type != InfoboxTokenType::GalleryClose {
                     right_value += &tokens[i].value;
                     i+=1;
