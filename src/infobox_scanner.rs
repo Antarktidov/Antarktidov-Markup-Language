@@ -48,5 +48,6 @@ pub fn scan_infobox(infobox: &str) -> Vec<InfoboxToken> {
         i+=1;
     }
 
+
     return tokens;
 }

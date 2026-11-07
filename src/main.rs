@@ -16,6 +16,10 @@ mod infobox_scanner;
 mod infobox_parser;
 mod infobox_compiler;
 
+mod scan_infoboxes_lists;
+mod parse_infoboxes_lists;
+mod compile_infobox_list;
+
 use dotenv::dotenv;
 fn main() {
     dotenv().ok();

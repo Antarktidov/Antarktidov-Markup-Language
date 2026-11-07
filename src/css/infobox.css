@@ -25,3 +25,6 @@ table.aml-infobox th {
 	color: #fff; 
 	font-weight: normal;
 }
+.aml-infobox-title {
+    text-align: center;
+}
