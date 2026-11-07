@@ -21,15 +21,17 @@ pub fn parse_infobox(tokens: Vec<InfoboxToken>) -> Vec<InfoboxEntity> {
     while i < tokens.len() {
         if tokens[i].token_type == InfoboxTokenType::Other {
             let mut left_value = String::from("");
-            i+=1;
+            //i+=1;
             while i < tokens.len() && tokens[i].token_type != InfoboxTokenType::Equal {
                 left_value += &tokens[i].value;
+                 i+=1;
             }
 
             let mut right_value = String::from("");
             i+=1;
             while i < tokens.len() && tokens[i].token_type != InfoboxTokenType::Split {
                 right_value += &tokens[i].value;
+                 i+=1;
             }
 
             entities.push({InfoboxEntity{
@@ -37,6 +39,8 @@ pub fn parse_infobox(tokens: Vec<InfoboxToken>) -> Vec<InfoboxEntity> {
                 left_value: left_value,
                 right_value: right_value,
             }});
+            i+=1;
+            continue;
         }
 
         i+=1;
