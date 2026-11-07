@@ -6,4 +6,5 @@ edition = "2024"
 [dependencies]
 unicode-segmentation = "1.10"
 dotenv = "0.15.0"
+rand = "0.8"
 
