@@ -4,3 +4,4 @@
 .env
 *.taml
 /templates
+/File

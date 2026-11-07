@@ -37,6 +37,7 @@ pub enum TokenType {
 
     OpeningTemplate,
     ClosingTemplate,
+    OpeningInfobox,
 }
 
 #[derive(PartialEq)]
@@ -47,7 +48,7 @@ pub struct Token {
 }
 
 pub fn scan_code(code: &str) -> Vec<Token> {
-    let mut tokens: Vec<Token> = vec![(Token { value: "".to_string(), token_type: TokenType::NEWLINE })];
+    let mut tokens: Vec<Token> = vec![(Token { value: "\r\n".to_string(), token_type: TokenType::NEWLINE })];
     let mut graphemes: Vec<&str> = code.graphemes(true).collect();
     let mut i = 0;
 
@@ -58,31 +59,31 @@ pub fn scan_code(code: &str) -> Vec<Token> {
                     if i + 3 < graphemes.len() && graphemes[i+3] == "#" {
                         if i + 4 < graphemes.len() && graphemes[i+4] == "#" {
                             if i + 5 < graphemes.len() && graphemes[i+5] == "#" {
-                                tokens.push(Token { value: "".to_string(), token_type: TokenType::SHARP6 });
+                                tokens.push(Token { value: "######".to_string(), token_type: TokenType::SHARP6 });
                                 i+=6;
                                 continue;
                             }
 
-                            tokens.push(Token { value: "".to_string(), token_type: TokenType::SHARP5 });
+                            tokens.push(Token { value: "#####".to_string(), token_type: TokenType::SHARP5 });
                             i+=5;
                             continue;
                         }
 
-                        tokens.push(Token { value: "".to_string(), token_type: TokenType::SHARP4 });
+                        tokens.push(Token { value: "####".to_string(), token_type: TokenType::SHARP4 });
                         i+=4;
                         continue;
                     }
 
-                    tokens.push(Token { value: "".to_string(), token_type: TokenType::SHARP3 });
+                    tokens.push(Token { value: "###".to_string(), token_type: TokenType::SHARP3 });
                     i+=3;
                     continue;
                 }
 
-                tokens.push(Token { value: "".to_string(), token_type: TokenType::SHARP2 });
+                tokens.push(Token { value: "##".to_string(), token_type: TokenType::SHARP2 });
                 i+=2;
                 continue; 
             }
-            tokens.push(Token { value: "".to_string(), token_type: TokenType::SHARP1 });
+            tokens.push(Token { value: "#".to_string(), token_type: TokenType::SHARP1 });
             i+=1;
             continue; 
         }
@@ -93,31 +94,31 @@ pub fn scan_code(code: &str) -> Vec<Token> {
                     if i + 3 < graphemes.len() && graphemes[i+3] == "=" {
                         if i + 4 < graphemes.len() && graphemes[i+4] == "=" {
                             if i + 5 < graphemes.len() && graphemes[i+5] == "=" {
-                                tokens.push(Token { value: "".to_string(), token_type: TokenType::EQUAL6 });
+                                tokens.push(Token { value: "======".to_string(), token_type: TokenType::EQUAL6 });
                                 i+=6;
                                 continue;
                             }
 
-                            tokens.push(Token { value: "".to_string(), token_type: TokenType::EQUAL5 });
+                            tokens.push(Token { value: "=====".to_string(), token_type: TokenType::EQUAL5 });
                             i+=5;
                             continue;
                         }
 
-                        tokens.push(Token { value: "".to_string(), token_type: TokenType::EQUAL4 });
+                        tokens.push(Token { value: "====".to_string(), token_type: TokenType::EQUAL4 });
                         i+=4;
                         continue;
                     }
 
-                    tokens.push(Token { value: "".to_string(), token_type: TokenType::EQUAL3 });
+                    tokens.push(Token { value: "===".to_string(), token_type: TokenType::EQUAL3 });
                     i+=3;
                     continue;
                 }
 
-                tokens.push(Token { value: "".to_string(), token_type: TokenType::EQUAL2 });
+                tokens.push(Token { value: "==".to_string(), token_type: TokenType::EQUAL2 });
                 i+=2;
                 continue; 
             }
-            tokens.push(Token { value: "".to_string(), token_type: TokenType::EQUAL1 });
+            tokens.push(Token { value: "=".to_string(), token_type: TokenType::EQUAL1 });
             i+=1;
             continue; 
         }
@@ -127,32 +128,32 @@ pub fn scan_code(code: &str) -> Vec<Token> {
             (graphemes[i+2] == "h" || graphemes[i+2] == "H") &&
             graphemes[i+4] == ">" {
                 if graphemes[i+3] == "1" {
-                    tokens.push(Token { value: "".to_string(), token_type:  TokenType::ClosingH1 });
+                    tokens.push(Token { value: "</h1>".to_string(), token_type:  TokenType::ClosingH1 });
                     i+=5;
                     continue;
                 }
                 if graphemes[i+3] == "2" {
-                    tokens.push(Token { value: "".to_string(), token_type:  TokenType::ClosingH2 });
+                    tokens.push(Token { value: "</h2>".to_string(), token_type:  TokenType::ClosingH2 });
                     i+=5;
                     continue;
                 }
                 if graphemes[i+3] == "3" {
-                    tokens.push(Token { value: "".to_string(), token_type:  TokenType::ClosingH3 });
+                    tokens.push(Token { value: "</h3>".to_string(), token_type:  TokenType::ClosingH3 });
                     i+=5;
                     continue;
                 }
                 if graphemes[i+3] == "4" {
-                    tokens.push(Token { value: "".to_string(), token_type:  TokenType::ClosingH4 });
+                    tokens.push(Token { value: "</h4>".to_string(), token_type:  TokenType::ClosingH4 });
                     i+=5;
                     continue;
                 }
                 if graphemes[i+3] == "5" {
-                    tokens.push(Token { value: "".to_string(), token_type:  TokenType::ClosingH5 });
+                    tokens.push(Token { value: "</h5>".to_string(), token_type:  TokenType::ClosingH5 });
                     i+=5;
                     continue;
                 }
                 if graphemes[i+3] == "6" {
-                    tokens.push(Token { value: "".to_string(), token_type:  TokenType::ClosingH6 });
+                    tokens.push(Token { value: "</h6>".to_string(), token_type:  TokenType::ClosingH6 });
                     i+=5;
                     continue;
                 }
@@ -161,32 +162,32 @@ pub fn scan_code(code: &str) -> Vec<Token> {
             (graphemes[i+1] == "h" || graphemes[i+1] == "H") &&
             graphemes[i+3] == ">" {
                if graphemes[i+2] == "1" {
-                    tokens.push(Token { value: "".to_string(), token_type:  TokenType::OpeningH1 });
+                    tokens.push(Token { value: "<h1>".to_string(), token_type:  TokenType::OpeningH1 });
                     i+=4;
                     continue;
                 }
                 if graphemes[i+2] == "2" {
-                    tokens.push(Token { value: "".to_string(), token_type:  TokenType::OpeningH2 });
+                    tokens.push(Token { value: "<h2>".to_string(), token_type:  TokenType::OpeningH2 });
                     i+=4;
                     continue;
                 }
                 if graphemes[i+2] == "3" {
-                    tokens.push(Token { value: "".to_string(), token_type:  TokenType::OpeningH3 });
+                    tokens.push(Token { value: "<h3>".to_string(), token_type:  TokenType::OpeningH3 });
                     i+=4;
                     continue;
                 }
                 if graphemes[i+2] == "4" {
-                    tokens.push(Token { value: "".to_string(), token_type:  TokenType::OpeningH4 });
+                    tokens.push(Token { value: "<h4>".to_string(), token_type:  TokenType::OpeningH4 });
                     i+=4;
                     continue;
                 }
                 if graphemes[i+2] == "5" {
-                    tokens.push(Token { value: "".to_string(), token_type:  TokenType::OpeningH5 });
+                    tokens.push(Token { value: "<h5>".to_string(), token_type:  TokenType::OpeningH5 });
                     i+=4;
                     continue;
                 }
                 if graphemes[i+2] == "6" {
-                    tokens.push(Token { value: "".to_string(), token_type:  TokenType::OpeningH6 });
+                    tokens.push(Token { value: "<h6>".to_string(), token_type:  TokenType::OpeningH6 });
                     i+=4;
                     continue;
                 } 
@@ -194,20 +195,29 @@ pub fn scan_code(code: &str) -> Vec<Token> {
         }
 
         if graphemes[i] == "*" {
-            tokens.push(Token { value: "".to_string(), token_type: TokenType::STAR });
+            tokens.push(Token { value: "*".to_string(), token_type: TokenType::STAR });
             i+=1;
             continue;
         }
 
         if graphemes[i] == "\r\n" {
-            tokens.push(Token { value: "".to_string(), token_type: TokenType::NEWLINE });
+            tokens.push(Token { value: "\r\n".to_string(), token_type: TokenType::NEWLINE });
             i+=1;
             continue;
         }
 
         if graphemes[i] == "{" {
             if i+1 < graphemes.iter().count() && graphemes[i+1] == "{"  {
-                tokens.push(Token { value: "".to_string(), token_type: TokenType::OpeningTemplate });
+                //{{Инфобокс:
+                if i+9 < graphemes.iter().count() && graphemes[i+2] == "И" && graphemes[i+3] == "н"
+                && graphemes[i+4] == "ф" && graphemes[i+5] == "о"  && graphemes[i+6] == "б"
+                && graphemes[i+7] == "о" && graphemes[i+8] == "к"  && graphemes[i+9] == "с"
+                && graphemes[i+10] == ":" {
+                    tokens.push(Token { value: "//{{Инфобокс:".to_string(), token_type: TokenType::OpeningInfobox });
+                    i+=10;
+                    continue;
+                }
+                tokens.push(Token { value: "{{".to_string(), token_type: TokenType::OpeningTemplate });
                 i+=2;
                 continue;
             }
@@ -215,7 +225,7 @@ pub fn scan_code(code: &str) -> Vec<Token> {
 
         if graphemes[i] == "}" {
             if i+1 < graphemes.iter().count() && graphemes[i+1] == "}"  {
-                tokens.push(Token { value: "".to_string(), token_type: TokenType::ClosingTemplate });
+                tokens.push(Token { value: "}}".to_string(), token_type: TokenType::ClosingTemplate });
                 i+=2;
                 continue;
             }
@@ -225,7 +235,7 @@ pub fn scan_code(code: &str) -> Vec<Token> {
         i+=1;
     }
 
-    tokens.push(Token { value: "".to_string(), token_type: TokenType::NEWLINE });
+    tokens.push(Token { value: "\r\n".to_string(), token_type: TokenType::NEWLINE });
 
     return tokens;
 }

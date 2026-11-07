@@ -1,0 +1,27 @@
+table.aml-infobox{
+	width: 300px;
+	border-collapse:collapse;
+	border-spacing:0;
+	height: auto;
+    margin-left: auto;
+    float: right;
+    clear: right;
+    
+}
+table.aml-infobox img {
+    width: 300px;
+    height: auto;
+}
+table.aml-infobox,table.aml-infobox td, table.aml-infobox th {
+	border: 1px solid #595959;
+}
+table.aml-infobox td,table.aml-infobox th {
+	padding: 3px;
+	width: 30px;
+	height: 35px;
+}
+table.aml-infobox th {
+	background: #4e6982;
+	color: #fff; 
+	font-weight: normal;
+}
