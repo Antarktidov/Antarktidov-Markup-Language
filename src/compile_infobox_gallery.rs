@@ -6,14 +6,19 @@ use crate::parse_galley::GalleryItem;
 
 use rand::distributions::Alphanumeric;
 
+fn generate_id(rng: &mut impl Rng) -> String {
+    rng.sample_iter(&Alphanumeric)
+        .take(30)
+        .map(char::from)
+        .collect()
+}
+
 pub fn compile(gallery_items: Vec<GalleryItem>) -> String {
     let domain = env::var("domain").expect("domain must be set");
 
-    let rand_identifer: String = thread_rng()
-        .sample_iter(&Alphanumeric)
-        .take(30)
-        .map(char::from)
-        .collect();
+    let mut rng = rand::thread_rng();
+
+    let rand_identifer = generate_id(&mut rng);
 
     let mut html_tabs = String::from("<div class=\"tabs\">");
     let mut html_imgs = String::from("<div class=\"img-container\">");
@@ -32,14 +37,14 @@ pub fn compile(gallery_items: Vec<GalleryItem>) -> String {
     html_imgs += "</div>";
 
     let js = format!(r#"
-        var tabs = document.querySelectorAll(".tab-{rand_identifer}");
-        var tabImgs = document.querySelectorAll(".tab-img-{rand_identifer}");
+        var tabs{rand_identifer} = document.querySelectorAll(".tab-{rand_identifer}");
+        var tabImgs{rand_identifer} = document.querySelectorAll(".tab-img-{rand_identifer}");
 
-        tabImgs[0].style.display = 'unset';
+        tabImgs{rand_identifer}[0].style.display = 'unset';
 
-        tabs.forEach((tab) => {{
+        tabs{rand_identifer}.forEach((tab) => {{
             tab.onclick = function() {{
-                tabImgs.forEach((tabImg) => {{
+                tabImgs{rand_identifer}.forEach((tabImg) => {{
                     tabImg.style.display = 'none';
                 }});
                 document.querySelector(`[data-tab-img-id="${{tab.getAttribute("data-tab-id")}}"]`).style.display = 'unset';
