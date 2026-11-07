@@ -30,6 +30,7 @@ fn main() {
 
         if entity.entity_type == EntityType::Infobox {
             println!("{}", entity.value);
+            //scan, parse, compile infobox
             continue;
         }
 
