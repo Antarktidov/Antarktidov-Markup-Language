@@ -103,6 +103,10 @@ pub fn compile(entities: Vec<Entity>) -> String {
             output += &template_code.unwrap();
         }
 
+        else if entities[i].entity_type == EntityType::Infobox {
+            output += &entities[i].value;
+        }
+
         i+=1;
     }
 
