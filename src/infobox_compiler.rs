@@ -1,5 +1,5 @@
-use crate::infobox_parser::InfoboxEntity;
-use crate::{compile_infobox_list, parse_infoboxes_lists};
+use crate::infobox_parser::{InfoboxEntity, InfoboxEntityType};
+use crate::{compile_infobox_list, parse_galley, parse_infoboxes_lists, scan_gallery};
 use crate::scan_infoboxes_lists::{self, *};
 use std::env;
 
@@ -9,6 +9,12 @@ pub fn compile_infobox(entities: Vec<InfoboxEntity>) -> String {
     let mut i = 0;
     while i < entities.len() {
         if entities[i].left_value == "Изображение" || entities[i].left_value == "\r\nИзображение" {
+            if entities[i].entity_type == InfoboxEntityType::Gallery {
+                let gallery_tokens = scan_gallery::scan(&entities[i].right_value);
+                let gallery_list_items = parse_galley::parse(gallery_tokens);
+                println!("{:?}", gallery_list_items);
+            }
+
             infobox_html += &format!("<tr><td colspan=\"2\"><img src={}/File/{}></td></tr>", domain, entities[i].right_value);
         }
         else if entities[i].left_value == "Title" || entities[i].left_value == "\r\nTitle" {

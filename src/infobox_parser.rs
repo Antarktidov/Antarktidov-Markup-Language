@@ -4,6 +4,7 @@ use crate::infobox_scanner::{InfoboxToken, InfoboxTokenType};
 #[derive(Debug)]
 pub enum InfoboxEntityType {
     //Image,
+    Gallery,
     Other,
 }
 
@@ -35,20 +36,27 @@ pub fn parse_infobox(tokens: Vec<InfoboxToken>) -> Vec<InfoboxEntity> {
                     right_value += &tokens[i].value;
                     i+=1;
                 }
+                entities.push({InfoboxEntity{
+                    entity_type: InfoboxEntityType::Gallery,
+                    left_value: left_value,
+                    right_value: right_value,
+                }});
+                i+=1;
+                continue;
             } else {
                 while i < tokens.len() && tokens[i].token_type != InfoboxTokenType::Split {
                     right_value += &tokens[i].value;
                     i+=1;
                 }
+                entities.push({InfoboxEntity{
+                    entity_type: InfoboxEntityType::Other,
+                    left_value: left_value,
+                    right_value: right_value,
+                }});
+                i+=1;
+                continue;
             }
 
-            entities.push({InfoboxEntity{
-                entity_type: InfoboxEntityType::Other,
-                left_value: left_value,
-                right_value: right_value,
-            }});
-            i+=1;
-            continue;
         }
 
         i+=1;
