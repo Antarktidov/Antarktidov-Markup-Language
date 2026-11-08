@@ -73,7 +73,7 @@ fn main() {
                 let mut is_has_head = true;
 
                 if compilled_lines.len() >= 2 {
-                    let second_line = compilled_lines[1];
+                    let second_line = &compilled_lines[1];
                     for cl in second_line {
                         if !cl.chars().all(|x| x == '-') {
                             is_has_head = false;
@@ -88,7 +88,7 @@ fn main() {
                          continue;
                     }
 
-                    html_md_table += &markdown_tables::line::compiler::compile(compilled_lines[i], i == 0 && is_has_head);
+                    html_md_table += &markdown_tables::line::compiler::compile(&compilled_lines[i], i == 0 && is_has_head);
                     i+=1;
                 }
 
