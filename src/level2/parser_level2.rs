@@ -1,4 +1,4 @@
-use crate::scanner_level2::{TokenLevel2, TokenTypeLevel2};
+use crate::level2::scanner_level2::{TokenLevel2, TokenTypeLevel2};
 
 #[derive(Debug)]
 #[derive(PartialEq)]

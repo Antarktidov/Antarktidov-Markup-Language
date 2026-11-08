@@ -2,7 +2,7 @@ use std::env;
 use rand::{Rng, thread_rng};
 
 extern crate rand;
-use crate::parse_galley::GalleryItem;
+use crate::gallery::parse_galley::GalleryItem;
 
 use rand::distributions::Alphanumeric;
 

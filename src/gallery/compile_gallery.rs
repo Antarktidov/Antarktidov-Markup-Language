@@ -1,6 +1,6 @@
 use std::env;
 
-use crate::parse_galley::GalleryItem;
+use crate::gallery::parse_galley::GalleryItem;
 
 pub fn compile(items: Vec<GalleryItem>) -> String {
     let domain = env::var("domain").expect("domain must be set");

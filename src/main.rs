@@ -1,29 +1,10 @@
-use std::process;
-use std::io::Read;
-use unicode_segmentation::UnicodeSegmentation;
-use std::io::prelude::*;
+use crate::{gallery::{compile_gallery, parse_galley, scan_gallery}, infobox::{infobox_compiler, infobox_parser, infobox_scanner}, level1::{compile::compile, parser, scanner}, level2::{compile_l2::compile_l2, parser_level2, scanner_level2}, parser::{Entity, EntityType}, utils::filesystem};
 
-use crate::parser::{Entity, EntityType};
-
-mod filesystem;
-mod scanner;
-mod parser;
-mod scanner_level2;
-mod parser_level2;
-mod compilers;
-
-mod infobox_scanner;
-mod infobox_parser;
-mod infobox_compiler;
-
-mod scan_infoboxes_lists;
-mod parse_infoboxes_lists;
-mod compile_infobox_list;
-
-mod scan_gallery;
-mod parse_galley;
-mod compile_infobox_gallery;
-mod compile_gallery;
+mod level1;
+mod level2;
+mod infobox;
+mod gallery;
+mod utils;
 
 use dotenv::dotenv;
 fn main() {
@@ -62,10 +43,10 @@ fn main() {
         let entity_sub_tokens = scanner_level2::scan_l2(&entity.value);
         let entity_sub_entities = parser_level2::parse_l2(entity_sub_tokens);
         println!("entity_sub_entities: {:?}", entity_sub_entities);
-        let compiled_entity_value = compilers::compile_l2(entity_sub_entities);
+        let compiled_entity_value = compile_l2(entity_sub_entities);
         compiled_entities.push(Entity { value: compiled_entity_value, entity_type: entity.entity_type });
     }
 
-    let html = compilers::compile(compiled_entities);
+    let html = compile(compiled_entities);
     filesystem::write_file(&html);
 }
