@@ -7,6 +7,7 @@ pub fn compile(entities: Vec<Entity>) -> String {
 
     let mut is_document_has_infoboxes = false;
     let mut is_document_has_galleries = false;
+    let mut is_document_has_markdown_tables = false;
 
     let mut i = 0;
 
@@ -91,7 +92,7 @@ pub fn compile(entities: Vec<Entity>) -> String {
 
         else if entities[i].entity_type == EntityType::MarkdownTable {
             output += &entities[i].value;
-            //is_document_has_galleries = true;
+            is_document_has_markdown_tables = true;
         }
 
         i+=1;
@@ -104,6 +105,11 @@ pub fn compile(entities: Vec<Entity>) -> String {
 
     if is_document_has_galleries {
         let css = include_str!("../css/gallery.css");
+        output += &format!("<style>{}</style>", css);
+    }
+
+    if is_document_has_markdown_tables {
+        let css = include_str!("../css/markdown-table.css");
         output += &format!("<style>{}</style>", css);
     }
 

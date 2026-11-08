@@ -43,7 +43,7 @@ fn main() {
         if entity.entity_type == EntityType::MarkdownTable {
             //println!("Markdown-table: {}", entity.value);
             let lines = splitter::split(&entity.value);
-            let mut html_md_table = String::from("<table border=\"1\">");
+            let mut html_md_table = String::from("<table class=\"markdown-table\">");
             //println!("lines: {:?}", lines);
             let mut is_has_head = true;
             let mut compilled_lines: Vec<Vec<String>> = vec![];
