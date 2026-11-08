@@ -346,6 +346,7 @@ pub fn parse_code(tokens: Vec<Token>) -> Vec<Entity> {
                     value += &tokens[i].value;
                     i+=1;
                 }
+                value += "|";
                 entities.push(Entity { value, entity_type: EntityType::MarkdownTable });
                 i+=1;
                 continue;
