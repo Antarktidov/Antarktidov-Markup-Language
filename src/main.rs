@@ -45,6 +45,7 @@ fn main() {
             let lines = splitter::split(&entity.value);
             let mut html_md_table = String::from("<table>");
             //println!("lines: {:?}", lines);
+            let mut is_has_head = true;
             let mut compilled_lines: Vec<Vec<String>> = vec![];
             for l in &lines {
                 let mdtl_tokens = markdown_tables::line::scanner::scan(&l);
@@ -70,8 +71,6 @@ fn main() {
 
                 compilled_lines.push(compilled_cells);
 
-                let mut is_has_head = true;
-
                 if compilled_lines.len() >= 2 {
                     let second_line = &compilled_lines[1];
                     for cl in second_line {
@@ -81,7 +80,9 @@ fn main() {
                     }
                 }
 
-                let mut i = 0;
+            }
+
+            let mut i = 0;
                 while i < compilled_lines.len() {
                     if (i == 0 && is_has_head) {
                         html_md_table += "<thead>";
@@ -106,8 +107,6 @@ fn main() {
                 }
 
                 html_md_table += "</tbody></table>";
-
-            }
 
             println!("html_md_table: {}", html_md_table);
             compiled_entities.push(Entity { value: html_md_table, entity_type: entity.entity_type });
