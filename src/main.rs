@@ -3,27 +3,15 @@ use std::io::Read;
 use unicode_segmentation::UnicodeSegmentation;
 use std::io::prelude::*;
 
-use crate::parser::{Entity, EntityType};
+use crate::{gallery::{compile_gallery, parse_galley, scan_gallery}, infobox::{infobox_compiler, infobox_parser, infobox_scanner}, level1::{parser, scanner}, level2::{parser_level2, scanner_level2}, parser::{Entity, EntityType}, utils::filesystem};
 
-mod filesystem;
-mod scanner;
-mod parser;
-mod scanner_level2;
-mod parser_level2;
 mod compilers;
 
-mod infobox_scanner;
-mod infobox_parser;
-mod infobox_compiler;
-
-mod scan_infoboxes_lists;
-mod parse_infoboxes_lists;
-mod compile_infobox_list;
-
-mod scan_gallery;
-mod parse_galley;
-mod compile_infobox_gallery;
-mod compile_gallery;
+mod level1;
+mod level2;
+mod infobox;
+mod gallery;
+mod utils;
 
 use dotenv::dotenv;
 fn main() {

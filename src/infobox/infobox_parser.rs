@@ -1,4 +1,4 @@
-use crate::infobox_scanner::{InfoboxToken, InfoboxTokenType};
+use crate::infobox::infobox_scanner::{InfoboxToken, InfoboxTokenType};
 
 #[derive(PartialEq)]
 #[derive(Debug)]

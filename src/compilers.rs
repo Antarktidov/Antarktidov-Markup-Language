@@ -1,5 +1,5 @@
-use crate::{parser::{Entity, EntityType}, parser_level2::{EntityLevel2, EntityTypeLevel2}};
-use std::{env, fs::File, io::Read, process::Command};
+use crate::{level1::parser::{Entity, EntityType}, level2::parser_level2::{EntityLevel2, EntityTypeLevel2}};
+use std::{env, process::Command};
 
 pub fn compile_l2(entities: Vec<EntityLevel2>) -> String {
     let mut compiled_line = String::from("");

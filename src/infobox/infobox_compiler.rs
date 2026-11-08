@@ -1,6 +1,8 @@
-use crate::infobox_parser::{InfoboxEntity, InfoboxEntityType};
-use crate::{compile_infobox_gallery, compile_infobox_list, parse_galley, parse_infoboxes_lists, scan_gallery};
-use crate::scan_infoboxes_lists::{self, *};
+use crate::gallery::{parse_galley, scan_gallery};
+use crate::infobox::compile_infobox_gallery;
+use crate::infobox::infobox_parser::{InfoboxEntity, InfoboxEntityType};
+use crate::infobox::lists::{compile_infobox_list, parse_infoboxes_lists};
+use crate::infobox::lists::scan_infoboxes_lists;
 use std::env;
 
 pub fn compile_infobox(entities: Vec<InfoboxEntity>) -> String {

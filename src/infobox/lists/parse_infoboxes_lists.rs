@@ -1,4 +1,4 @@
-use crate::{infobox_scanner::InfoboxToken, scan_infoboxes_lists::{ILToken, ILTokenType}};
+use crate::{infobox::infobox_scanner::InfoboxToken, infobox::lists::scan_infoboxes_lists::{ILToken, ILTokenType}};
 
 pub fn parse(tokens: Vec<ILToken>) -> Vec<String> {
     let mut list_items: Vec<String> = vec![];

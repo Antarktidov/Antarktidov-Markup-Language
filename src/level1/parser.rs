@@ -1,5 +1,5 @@
-use crate::scanner::Token;
-use crate::scanner::TokenType;
+use crate::level1::scanner::Token;
+use crate::level1::scanner::TokenType;
 
 #[derive(PartialEq)]
 #[derive(Debug)]

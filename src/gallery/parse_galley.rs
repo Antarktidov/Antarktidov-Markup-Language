@@ -1,4 +1,4 @@
-use crate::scan_gallery::{GalleryToken, GalleryTokenType};
+use crate::gallery::scan_gallery::{GalleryToken, GalleryTokenType};
 
 #[derive(PartialEq)]
 #[derive(Debug)]
