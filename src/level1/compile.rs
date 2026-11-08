@@ -89,6 +89,11 @@ pub fn compile(entities: Vec<Entity>) -> String {
             is_document_has_galleries = true;
         }
 
+        else if entities[i].entity_type == EntityType::MarkdownTable {
+            output += &entities[i].value;
+            //is_document_has_galleries = true;
+        }
+
         i+=1;
     }
 

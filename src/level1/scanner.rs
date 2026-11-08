@@ -41,6 +41,8 @@ pub enum TokenType {
 
     GalleryOpen,
     GalleryClose,
+
+    Split,
 }
 
 #[derive(PartialEq)]
@@ -227,6 +229,12 @@ pub fn scan_code(code: &str) -> Vec<Token> {
             continue;
         }
 
+        if graphemes[i] == "|" {
+            tokens.push(Token { value: "|".to_string(), token_type: TokenType::Split });
+            i+=1;
+            continue;
+        }
+
         if graphemes[i] == "\r\n" {
             tokens.push(Token { value: "\r\n".to_string(), token_type: TokenType::NEWLINE });
             i+=1;
@@ -263,6 +271,8 @@ pub fn scan_code(code: &str) -> Vec<Token> {
     }
 
     tokens.push(Token { value: "\r\n".to_string(), token_type: TokenType::NEWLINE });
+
+    println!("tokens {:?}", tokens);
 
     return tokens;
 }
