@@ -43,6 +43,7 @@ fn main() {
         if entity.entity_type == EntityType::MarkdownTable {
             //println!("Markdown-table: {}", entity.value);
             let lines = splitter::split(&entity.value);
+            let mut html_md_table = String::from("<table>");
             //println!("lines: {:?}", lines);
             let mut compilled_lines: Vec<Vec<String>> = vec![];
             for l in &lines {
@@ -68,7 +69,34 @@ fn main() {
                 }
 
                 compilled_lines.push(compilled_cells);
+
+                let mut is_has_head = true;
+
+                if compilled_lines.len() >= 2 {
+                    let second_line = compilled_lines[1];
+                    for cl in second_line {
+                        if !cl.chars().all(|x| x == '-') {
+                            is_has_head = false;
+                        }
+                    }
+                }
+
+                let mut i = 0;
+                while i < compilled_lines.len() {
+                    if (i == 1 && is_has_head) {
+                         i+=1;
+                         continue;
+                    }
+
+                    html_md_table += &markdown_tables::line::compiler::compile(compilled_lines[i], i == 0 && is_has_head);
+                    i+=1;
+                }
+
+                html_md_table += "</table>";
+
             }
+
+            compiled_entities.push(Entity { value: html_md_table, entity_type: entity.entity_type });
             continue;
         }
 
