@@ -14,7 +14,7 @@ pub fn compile_l2(entities: Vec<EntityLevel2>) -> String {
             compiled_line += &format!("<a href=\"{}/{}\">{}</a>", domain, entity.value1, entity.value2);
         }
         else if entity.entity_type == EntityTypeLevel2::MarkdownLink {
-            compiled_line += &format!("<a href=\"{}\">{}</a>", entity.value1, entity.value2);
+            compiled_line += &format!("<a href=\"{}\">{}</a>", entity.value2, entity.value1);
         }
         else if entity.entity_type == EntityTypeLevel2::AmlImg {
             compiled_line += &format!("<img src=\"{}\">", entity.value1);
