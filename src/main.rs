@@ -44,13 +44,14 @@ fn main() {
             //println!("Markdown-table: {}", entity.value);
             let lines = splitter::split(&entity.value);
             //println!("lines: {:?}", lines);
-            for l in lines {
+            let mut compilled_lines: Vec<Vec<String>> = vec![];
+            for l in &lines {
                 let mdtl_tokens = markdown_tables::line::scanner::scan(&l);
                 let cells = markdown_tables::line::parser::parse(mdtl_tokens);
                 println!("Markdown cells: {:?}", cells);
                 let mut compilled_cells: Vec<String> = vec![];
                 for cl in cells {
-                    let mut ncl = String::new();
+                    //let mut ncl = String::new();
                     if cl.starts_with("*") {
                         let il_tokens = scan_infoboxes_lists::scanner(&cl);
                         let il_items = parse_infoboxes_lists::parse(il_tokens);
@@ -64,6 +65,8 @@ fn main() {
 
                         compilled_cells.push(compiled_entity_value);
                     }
+
+                    compilled_lines.push(compilled_cells);
                 }
             }
             continue;
