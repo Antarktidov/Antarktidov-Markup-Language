@@ -13,8 +13,6 @@ fn main() {
     let tokens: Vec<scanner::Token> = scanner::scan_code(&code.unwrap());
     let entities: Vec<parser::Entity> = parser::parse_code(tokens);
 
-    println!("{:?}", entities);
-
     let mut compiled_entities: Vec<parser::Entity> = vec![];
     
     for entity in entities {
@@ -37,6 +35,11 @@ fn main() {
             let entity_sub_entities = parse_galley::parse(entity_sub_tokens);
             let compiled_entity_value = compile_gallery::compile(entity_sub_entities);
             compiled_entities.push(Entity { value: compiled_entity_value, entity_type: entity.entity_type });
+            continue;
+        }
+
+        if entity.entity_type == EntityType::MarkdownTable {
+            println!("Markdown-table: {}", entity.value);
             continue;
         }
 
