@@ -340,7 +340,7 @@ pub fn parse_code(tokens: Vec<Token>) -> Vec<Entity> {
             if tokens[i-1].token_type == TokenType::NEWLINE {
                 let mut value = String::from("");
                 while i+2 < tokens.len() && !(
-                tokens[i+1].token_type == TokenType::Split && 
+                tokens[i].token_type == TokenType::Split && 
                 tokens[i+1].token_type == TokenType::NEWLINE && 
                 tokens[i+2].token_type == TokenType::NEWLINE ){
                     value += &tokens[i].value;
