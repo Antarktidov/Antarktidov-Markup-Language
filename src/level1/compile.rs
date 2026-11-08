@@ -49,12 +49,12 @@ pub fn compile(entities: Vec<Entity>) -> String {
         }
 
         else if entities[i].entity_type == EntityType::ListItem {
-            output += "<li>";
+            output += "<ul>";
             while i < entities.len() && entities[i].entity_type == EntityType::ListItem {
-                output += &format!("<ul>{}</ul>", entities[i].value);
+                output += &format!("<li>{}</li>", entities[i].value);
                 i+=1;
             }
-            output += "</li>";
+            output += "</ul>";
             i+=1;
             continue;
         }
