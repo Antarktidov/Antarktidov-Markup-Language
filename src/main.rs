@@ -83,19 +83,33 @@ fn main() {
 
                 let mut i = 0;
                 while i < compilled_lines.len() {
+                    if (i == 0 && is_has_head) {
+                        html_md_table += "<thead>";
+                    }
+
+                    if ((i == 0 && !is_has_head) || (i == 2 && is_has_head)) {
+                        html_md_table += "<tbody>";
+                    }
+
                     if (i == 1 && is_has_head) {
                          i+=1;
                          continue;
                     }
 
                     html_md_table += &markdown_tables::line::compiler::compile(&compilled_lines[i], i == 0 && is_has_head);
+                    
+                    if (i == 0 && is_has_head) {
+                        html_md_table += "</thead>";
+                    }
+                    
                     i+=1;
                 }
 
-                html_md_table += "</table>";
+                html_md_table += "</tbody></table>";
 
             }
 
+            println!("html_md_table: {}", html_md_table);
             compiled_entities.push(Entity { value: html_md_table, entity_type: entity.entity_type });
             continue;
         }
@@ -106,6 +120,8 @@ fn main() {
         let compiled_entity_value = compile_l2(entity_sub_entities);
         compiled_entities.push(Entity { value: compiled_entity_value, entity_type: entity.entity_type });
     }
+
+    println!("compiled_entities {:?}", compiled_entities);
 
     let html = compile(compiled_entities);
     filesystem::write_file(&html);
