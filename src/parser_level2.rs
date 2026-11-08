@@ -7,7 +7,9 @@ pub enum EntityTypeLevel2 {
     WikiLinkWithText,
     MarkdownLink,
     WikiFile,
+    WikiFileWithWidth,
     AmlImg,
+    AmlImgWithWidth,
     Other,
 }
 
@@ -78,6 +80,20 @@ pub fn parse_l2(tokens: Vec<TokenLevel2>) -> Vec<EntityLevel2> {
                 img_link += &tokens[i].value;
                 i+=1;
             }
+            
+
+            if i + 1 < tokens.len() && tokens[i+1].token_type == TokenTypeLevel2::OpeningBrackets {
+                let mut width = String::from("");
+                i+=2;
+                while i < tokens.len() && tokens[i].token_type != TokenTypeLevel2::ClosingBrackets {
+                    width += &tokens[i].value;
+                    i+=1;
+                }
+
+                entities.push(EntityLevel2 { value1: img_link, value2: width, entity_type: EntityTypeLevel2::AmlImgWithWidth });
+                i+=1;
+                continue;
+            }
 
             entities.push(EntityLevel2 { value1: img_link, value2: "".to_string(), entity_type: EntityTypeLevel2::AmlImg });
             i+=1;
@@ -86,14 +102,32 @@ pub fn parse_l2(tokens: Vec<TokenLevel2>) -> Vec<EntityLevel2> {
         else if tokens[i].token_type == TokenTypeLevel2::RUFile {
             let mut filename = String::from("");
             i+=1;
-            while i < tokens.len() && tokens[i].token_type != TokenTypeLevel2::DoubleClosingBrackets {
+            while i < tokens.len() && (tokens[i].token_type != TokenTypeLevel2::DoubleClosingBrackets
+            && tokens[i].token_type != TokenTypeLevel2::Split) {
                 filename += &tokens[i].value;
                 i+=1;
             }
 
-            entities.push(EntityLevel2 { value1: filename, value2: "".to_string(), entity_type: EntityTypeLevel2::WikiFile });
+            if i < tokens.len() &&  tokens[i].token_type == TokenTypeLevel2::DoubleClosingBrackets {
+                entities.push(EntityLevel2 { value1: filename, value2: "".to_string(), entity_type: EntityTypeLevel2::WikiFile });
+                i+=1;
+                continue;
+            }
+
+            let mut width = String::from("");
             i+=1;
-            continue;
+
+            while i < tokens.len() && tokens[i].token_type != TokenTypeLevel2::DoubleClosingBrackets {
+                width += &tokens[i].value;
+                i+=1;
+            }
+
+            if i < tokens.len() &&  tokens[i].token_type == TokenTypeLevel2::DoubleClosingBrackets {
+                entities.push(EntityLevel2 { value1: filename, value2: width, entity_type: EntityTypeLevel2::WikiFileWithWidth });
+                i+=1;
+                continue;
+            }
+            
         }
         else {
             entities.push(EntityLevel2 { value1: tokens[i].value.clone(), value2: "".to_string(), entity_type: EntityTypeLevel2::Other });

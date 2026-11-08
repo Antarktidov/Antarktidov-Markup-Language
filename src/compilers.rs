@@ -18,11 +18,14 @@ pub fn compile_l2(entities: Vec<EntityLevel2>) -> String {
         else if entity.entity_type == EntityTypeLevel2::AmlImg {
             compiled_line += &format!("<img src=\"{}\">", entity.value1);
         }
-        else if entity.entity_type == EntityTypeLevel2::AmlImg {
-            compiled_line += &format!("<img src=\"{}\">", entity.value1);
+        else if entity.entity_type == EntityTypeLevel2::AmlImgWithWidth {
+            compiled_line += &format!("<img src=\"{}\" width=\"{}\">", entity.value1, entity.value2);
         }
         else if entity.entity_type == EntityTypeLevel2::WikiFile {
-            compiled_line += &format!("<img src=\"{}/File:{}\">", domain, entity.value1);
+            compiled_line += &format!("<img src=\"{}/File/{}\">", domain, entity.value1);
+        }
+        else if entity.entity_type == EntityTypeLevel2::WikiFileWithWidth {
+            compiled_line += &format!("<img src=\"{}/File/{}\" width=\"{}\">", domain, entity.value1, entity.value2);
         }
         else if entity.entity_type == EntityTypeLevel2::Other {
             compiled_line += &entity.value1;

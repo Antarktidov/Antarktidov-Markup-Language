@@ -61,6 +61,7 @@ fn main() {
 
         let entity_sub_tokens = scanner_level2::scan_l2(&entity.value);
         let entity_sub_entities = parser_level2::parse_l2(entity_sub_tokens);
+        println!("entity_sub_entities: {:?}", entity_sub_entities);
         let compiled_entity_value = compilers::compile_l2(entity_sub_entities);
         compiled_entities.push(Entity { value: compiled_entity_value, entity_type: entity.entity_type });
     }
