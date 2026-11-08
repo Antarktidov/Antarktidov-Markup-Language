@@ -2,12 +2,12 @@ use std::vec;
 
 use unicode_segmentation::UnicodeSegmentation;
 
-use crate::markdown_tables::line::scanner::MDTLTokenType::{ClosingBraces, OpenBraces, Other, Spit};
+use crate::markdown_tables::line::scanner::MDTLTokenType::{ClosingBraces, OpenBraces, Other, Split};
 
 #[derive(PartialEq)]
 #[derive(Debug)]
 pub enum MDTLTokenType {
-    Spit,
+    Split,
     OpenBraces,
     ClosingBraces,
     Other,
@@ -24,7 +24,7 @@ pub fn scan(line: &str) -> Vec<MDTLToken> {
 
     while i < graphemes.iter().count() {
         if graphemes[i] == "|" {
-            tokens.push(MDTLToken { token_type: Spit, value: "|".to_string() });
+            tokens.push(MDTLToken { token_type: Split, value: "|".to_string() });
         }
         else if graphemes[i] == "[" {
             tokens.push(MDTLToken { token_type: OpenBraces, value: "[".to_string() });

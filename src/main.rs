@@ -41,9 +41,14 @@ fn main() {
         }
 
         if entity.entity_type == EntityType::MarkdownTable {
-            println!("Markdown-table: {}", entity.value);
+            //println!("Markdown-table: {}", entity.value);
             let lines = splitter::split(&entity.value);
-            println!("lines: {:?}", lines);
+            //println!("lines: {:?}", lines);
+            for l in lines {
+                let mdtl_tokens = markdown_tables::line::scanner::scan(&l);
+                let cells = markdown_tables::line::parser::parse(mdtl_tokens);
+                println!("Markdown cells: {:?}", cells);
+            }
             continue;
         }
 
