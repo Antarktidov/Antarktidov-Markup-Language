@@ -65,9 +65,9 @@ fn main() {
 
                         compilled_cells.push(compiled_entity_value);
                     }
-
-                    compilled_lines.push(compilled_cells);
                 }
+
+                compilled_lines.push(compilled_cells);
             }
             continue;
         }
