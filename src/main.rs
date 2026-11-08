@@ -1,4 +1,4 @@
-use crate::{gallery::{compile_gallery, parse_galley, scan_gallery}, infobox::{infobox_compiler, infobox_parser, infobox_scanner}, level1::{compile::compile, parser, scanner}, level2::{compile_l2::compile_l2, parser_level2, scanner_level2}, markdown_tables::splitter, parser::{Entity, EntityType}, utils::filesystem};
+use crate::{gallery::{compile_gallery, parse_galley, scan_gallery}, infobox::{infobox_compiler, infobox_parser, infobox_scanner, lists::{compile_infobox_list, parse_infoboxes_lists, scan_infoboxes_lists}}, level1::{compile::compile, parser, scanner}, level2::{compile_l2::compile_l2, parser_level2, scanner_level2}, markdown_tables::splitter, parser::{Entity, EntityType}, utils::filesystem};
 
 mod level1;
 mod level2;
@@ -48,6 +48,23 @@ fn main() {
                 let mdtl_tokens = markdown_tables::line::scanner::scan(&l);
                 let cells = markdown_tables::line::parser::parse(mdtl_tokens);
                 println!("Markdown cells: {:?}", cells);
+                let mut compilled_cells: Vec<String> = vec![];
+                for cl in cells {
+                    let mut ncl = String::new();
+                    if cl.starts_with("*") {
+                        let il_tokens = scan_infoboxes_lists::scanner(&cl);
+                        let il_items = parse_infoboxes_lists::parse(il_tokens);
+                        let compiled_entity_value = compile_infobox_list::compile_il(il_items);
+
+                        compilled_cells.push(compiled_entity_value);
+                    } else {
+                        let entity_sub_tokens = scanner_level2::scan_l2(&cl);
+                        let entity_sub_entities = parser_level2::parse_l2(entity_sub_tokens);
+                        let compiled_entity_value = compile_l2(entity_sub_entities);
+
+                        compilled_cells.push(compiled_entity_value);
+                    }
+                }
             }
             continue;
         }
