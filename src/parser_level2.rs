@@ -107,7 +107,7 @@ pub fn parse_l2(tokens: Vec<TokenLevel2>) -> Vec<EntityLevel2> {
                 i+=1;
             }
 
-            if tokens[i].token_type == TokenTypeLevel2::DoubleClosingBrackets {
+            if i < tokens.len() &&  tokens[i].token_type == TokenTypeLevel2::DoubleClosingBrackets {
                 entities.push(EntityLevel2 { value1: filename, value2: "".to_string(), entity_type: EntityTypeLevel2::WikiFile });
                 i+=1;
                 continue;
@@ -121,7 +121,7 @@ pub fn parse_l2(tokens: Vec<TokenLevel2>) -> Vec<EntityLevel2> {
                 i+=1;
             }
 
-            if tokens[i].token_type == TokenTypeLevel2::DoubleClosingBrackets {
+            if i < tokens.len() &&  tokens[i].token_type == TokenTypeLevel2::DoubleClosingBrackets {
                 entities.push(EntityLevel2 { value1: filename, value2: width, entity_type: EntityTypeLevel2::WikiFileWithWidth });
                 i+=1;
                 continue;
