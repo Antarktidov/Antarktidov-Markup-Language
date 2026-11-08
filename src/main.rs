@@ -1,9 +1,11 @@
-use crate::{gallery::{compile_gallery, parse_galley, scan_gallery}, infobox::{infobox_compiler, infobox_parser, infobox_scanner}, level1::{compile::compile, parser, scanner}, level2::{compile_l2::compile_l2, parser_level2, scanner_level2}, parser::{Entity, EntityType}, utils::filesystem};
+use crate::{gallery::{compile_gallery, parse_galley, scan_gallery}, infobox::{infobox_compiler, infobox_parser, infobox_scanner}, level1::{compile::compile, parser, scanner}, level2::{compile_l2::compile_l2, parser_level2, scanner_level2}, markdown_tables::splitter, parser::{Entity, EntityType}, utils::filesystem};
 
 mod level1;
 mod level2;
 mod infobox;
 mod gallery;
+mod markdown_tables;
+
 mod utils;
 
 use dotenv::dotenv;
@@ -40,6 +42,8 @@ fn main() {
 
         if entity.entity_type == EntityType::MarkdownTable {
             println!("Markdown-table: {}", entity.value);
+            let lines = splitter::split(&entity.value);
+            println!("lines: {:?}", lines);
             continue;
         }
 
