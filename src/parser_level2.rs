@@ -80,10 +80,11 @@ pub fn parse_l2(tokens: Vec<TokenLevel2>) -> Vec<EntityLevel2> {
                 img_link += &tokens[i].value;
                 i+=1;
             }
+            
 
-            if tokens[i].token_type == TokenTypeLevel2::OpeningBrackets {
+            if i + 1 < tokens.len() && tokens[i+1].token_type == TokenTypeLevel2::OpeningBrackets {
                 let mut width = String::from("");
-                i+=1;
+                i+=2;
                 while i < tokens.len() && tokens[i].token_type != TokenTypeLevel2::ClosingBrackets {
                     width += &tokens[i].value;
                     i+=1;
@@ -102,7 +103,7 @@ pub fn parse_l2(tokens: Vec<TokenLevel2>) -> Vec<EntityLevel2> {
             let mut filename = String::from("");
             i+=1;
             while i < tokens.len() && (tokens[i].token_type != TokenTypeLevel2::DoubleClosingBrackets
-            || tokens[i].token_type != TokenTypeLevel2::Split) {
+            && tokens[i].token_type != TokenTypeLevel2::Split) {
                 filename += &tokens[i].value;
                 i+=1;
             }
