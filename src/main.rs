@@ -23,6 +23,13 @@ fn main() {
             continue;
         }
 
+        if entity.entity_type == EntityType::CodeBlock {
+            println!("Code block: {:?}", entity);
+
+            compiled_entities.push(Entity { value: entity.value, value2: "".to_string(), entity_type: entity.entity_type });
+            continue;
+        }
+
         if entity.entity_type == EntityType::Infobox {
             //scan, parse, compile infobox
             let entity_sub_tokens = infobox_scanner::scan_infobox(&entity.value);
