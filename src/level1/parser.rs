@@ -367,7 +367,6 @@ pub fn parse_code(tokens: Vec<Token>) -> Vec<Entity> {
                 let mut value2 = String::from("");
                 i+=1;
                 while i < tokens.len() && tokens[i].token_type != TokenType::TripleBacktick {
-                    print!("{}", &tokens[i].value);
                     value2 += &tokens[i].value;
                     i+=1;
                 }
