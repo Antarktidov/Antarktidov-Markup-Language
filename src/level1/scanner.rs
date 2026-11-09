@@ -43,6 +43,8 @@ pub enum TokenType {
     GalleryClose,
 
     Split,
+
+    TripleBacktick, // ```
 }
 
 #[derive(PartialEq)]
@@ -221,6 +223,13 @@ pub fn scan_code(code: &str) -> Vec<Token> {
                 i+=9;
                 continue;
             }
+        }
+
+        if i + 2 < graphemes.len() && graphemes[i] == "`"
+            && graphemes[i+1] == "`" && graphemes[i+2] == "`" {
+            tokens.push(Token { value: "```".to_string(), token_type: TokenType::TripleBacktick });
+            i+=3;
+            continue;
         }
 
         if graphemes[i] == "*" {
