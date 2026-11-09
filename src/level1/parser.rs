@@ -42,7 +42,7 @@ pub fn parse_code(tokens: Vec<Token>) -> Vec<Entity> {
                     value += &tokens[i].value;
                     i+=1;
                 }
-                entities.push(Entity { value, entity_type: EntityType::Heading1 });
+                entities.push(Entity { value, value2: "".to_string(), entity_type: EntityType::Heading1 });
                 i+=1;
                 continue;
             }
