@@ -96,7 +96,7 @@ pub fn compile(entities: Vec<Entity>) -> String {
         }
 
         else if entities[i].entity_type == EntityType::CodeBlock {
-            output += &format!("<code data-code-lang=\"{}\">{}</code>", &entities[i].value, &entities[i].value2);
+            output += &format!("<pre><code data-code-lang=\"{}\" translate=\"no\">{}</code></pre>", &entities[i].value, &entities[i].value2);
         }
 
         i+=1;
