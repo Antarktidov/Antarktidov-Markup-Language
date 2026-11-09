@@ -8,6 +8,7 @@ pub fn compile(entities: Vec<Entity>) -> String {
     let mut is_document_has_infoboxes = false;
     let mut is_document_has_galleries = false;
     let mut is_document_has_markdown_tables = false;
+    let mut is_document_has_code_blocks = false;
 
     let mut i = 0;
 
@@ -95,6 +96,11 @@ pub fn compile(entities: Vec<Entity>) -> String {
             is_document_has_markdown_tables = true;
         }
 
+        else if entities[i].entity_type == EntityType::CodeBlock {
+            output += &format!("<pre><code data-code-lang=\"{}\" translate=\"no\">{}</code></pre>", &entities[i].value, &entities[i].value2);
+            is_document_has_code_blocks = true;
+        }
+
         i+=1;
     }
 
@@ -110,6 +116,11 @@ pub fn compile(entities: Vec<Entity>) -> String {
 
     if is_document_has_markdown_tables {
         let css = include_str!("../css/markdown-table.css");
+        output += &format!("<style>{}</style>", css);
+    }
+
+    if is_document_has_code_blocks {
+        let css = include_str!("../css/code-blocks.css");
         output += &format!("<style>{}</style>", css);
     }
 

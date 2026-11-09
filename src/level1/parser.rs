@@ -18,11 +18,14 @@ pub enum EntityType {
 
     Gallery,
     MarkdownTable,
+
+    CodeBlock,
 }
 #[derive(PartialEq)]
 #[derive(Debug)]
 pub struct Entity {
     pub value: String,
+    pub value2: String,
     pub entity_type: EntityType,
 }
 
@@ -39,7 +42,7 @@ pub fn parse_code(tokens: Vec<Token>) -> Vec<Entity> {
                     value += &tokens[i].value;
                     i+=1;
                 }
-                entities.push(Entity { value, entity_type: EntityType::Heading1 });
+                entities.push(Entity { value, value2: "".to_string(), entity_type: EntityType::Heading1 });
                 i+=1;
                 continue;
             }
@@ -53,7 +56,7 @@ pub fn parse_code(tokens: Vec<Token>) -> Vec<Entity> {
                     value += &tokens[i].value;
                     i+=1;
                 }
-                entities.push(Entity { value, entity_type: EntityType::Heading2 });
+                entities.push(Entity { value, value2: "".to_string(), entity_type: EntityType::Heading2 });
                 i+=1;
                 continue;
             }
@@ -67,7 +70,7 @@ pub fn parse_code(tokens: Vec<Token>) -> Vec<Entity> {
                     value += &tokens[i].value;
                     i+=1;
                 }
-                entities.push(Entity { value, entity_type: EntityType::Heading3 });
+                entities.push(Entity { value, value2: "".to_string(), entity_type: EntityType::Heading3 });
                 i+=1;
                 continue;
             }
@@ -82,7 +85,7 @@ pub fn parse_code(tokens: Vec<Token>) -> Vec<Entity> {
                     value += &tokens[i].value;
                     i+=1;
                 }
-                entities.push(Entity { value, entity_type: EntityType::Heading4 });
+                entities.push(Entity { value, value2: "".to_string(), entity_type: EntityType::Heading4 });
                 i+=1;
                 continue;
             }
@@ -96,7 +99,7 @@ pub fn parse_code(tokens: Vec<Token>) -> Vec<Entity> {
                     value += &tokens[i].value;
                     i+=1;
                 }
-                entities.push(Entity { value, entity_type: EntityType::Heading5 });
+                entities.push(Entity { value, value2: "".to_string(), entity_type: EntityType::Heading5 });
                 i+=1;
                 continue;
             }
@@ -110,7 +113,7 @@ pub fn parse_code(tokens: Vec<Token>) -> Vec<Entity> {
                     value += &tokens[i].value;
                     i+=1;
                 }
-                entities.push(Entity { value, entity_type: EntityType::Heading6 });
+                entities.push(Entity { value, value2: "".to_string(), entity_type: EntityType::Heading6 });
                 i+=1;
                 continue;
             }
@@ -125,7 +128,7 @@ pub fn parse_code(tokens: Vec<Token>) -> Vec<Entity> {
                     value += &tokens[i].value;
                     i+=1;
                 }
-                entities.push(Entity { value, entity_type: EntityType::Heading1 });
+                entities.push(Entity { value, value2: "".to_string(), entity_type: EntityType::Heading1 });
                 i+=1;
                 continue;
             }
@@ -139,7 +142,7 @@ pub fn parse_code(tokens: Vec<Token>) -> Vec<Entity> {
                     value += &tokens[i].value;
                     i+=1;
                 }
-                entities.push(Entity { value, entity_type: EntityType::Heading2 });
+                entities.push(Entity { value, value2: "".to_string(), entity_type: EntityType::Heading2 });
                 i+=1;
                 continue;
             }
@@ -153,7 +156,7 @@ pub fn parse_code(tokens: Vec<Token>) -> Vec<Entity> {
                     value += &tokens[i].value;
                     i+=1;
                 }
-                entities.push(Entity { value, entity_type: EntityType::Heading3 });
+                entities.push(Entity { value, value2: "".to_string(), entity_type: EntityType::Heading3 });
                 i+=1;
                 continue;
             }
@@ -167,7 +170,7 @@ pub fn parse_code(tokens: Vec<Token>) -> Vec<Entity> {
                     value += &tokens[i].value;
                     i+=1;
                 }
-                entities.push(Entity { value, entity_type: EntityType::Heading4 });
+                entities.push(Entity { value, value2: "".to_string(), entity_type: EntityType::Heading4 });
                 i+=1;
                 continue;
             }
@@ -181,7 +184,7 @@ pub fn parse_code(tokens: Vec<Token>) -> Vec<Entity> {
                     value += &tokens[i].value;
                     i+=1;
                 }
-                entities.push(Entity { value, entity_type: EntityType::Heading5 });
+                entities.push(Entity { value, value2: "".to_string(), entity_type: EntityType::Heading5 });
                 i+=1;
                 continue;
             }
@@ -195,7 +198,7 @@ pub fn parse_code(tokens: Vec<Token>) -> Vec<Entity> {
                     value += &tokens[i].value;
                     i+=1;
                 }
-                entities.push(Entity { value, entity_type: EntityType::Heading6 });
+                entities.push(Entity { value, value2: "".to_string(), entity_type: EntityType::Heading6 });
                 i+=1;
                 continue;
             }
@@ -209,7 +212,7 @@ pub fn parse_code(tokens: Vec<Token>) -> Vec<Entity> {
                     value += &tokens[i].value;
                     i+=1;
                 }
-                entities.push(Entity { value, entity_type: EntityType::Heading1 });
+                entities.push(Entity { value, value2: "".to_string(), entity_type: EntityType::Heading1 });
                 i+=1;
                 continue;
             }
@@ -222,7 +225,7 @@ pub fn parse_code(tokens: Vec<Token>) -> Vec<Entity> {
                     value += &tokens[i].value;
                     i+=1;
                 }
-                entities.push(Entity { value, entity_type: EntityType::Heading2 });
+                entities.push(Entity { value, value2: "".to_string(), entity_type: EntityType::Heading2 });
                 i+=1;
                 continue;
             }
@@ -235,7 +238,7 @@ pub fn parse_code(tokens: Vec<Token>) -> Vec<Entity> {
                     value += &tokens[i].value;
                     i+=1;
                 }
-                entities.push(Entity { value, entity_type: EntityType::Heading3 });
+                entities.push(Entity { value, value2: "".to_string(), entity_type: EntityType::Heading3 });
                 i+=1;
                 continue;
             }
@@ -248,7 +251,7 @@ pub fn parse_code(tokens: Vec<Token>) -> Vec<Entity> {
                     value += &tokens[i].value;
                     i+=1;
                 }
-                entities.push(Entity { value, entity_type: EntityType::Heading4 });
+                entities.push(Entity { value, value2: "".to_string(), entity_type: EntityType::Heading4 });
                 i+=1;
                 continue;
             }
@@ -261,7 +264,7 @@ pub fn parse_code(tokens: Vec<Token>) -> Vec<Entity> {
                     value += &tokens[i].value;
                     i+=1;
                 }
-                entities.push(Entity { value, entity_type: EntityType::Heading5 });
+                entities.push(Entity { value, value2: "".to_string(), entity_type: EntityType::Heading5 });
                 i+=1;
                 continue;
             }
@@ -274,7 +277,7 @@ pub fn parse_code(tokens: Vec<Token>) -> Vec<Entity> {
                     value += &tokens[i].value;
                     i+=1;
                 }
-                entities.push(Entity { value, entity_type: EntityType::Heading6 });
+                entities.push(Entity { value, value2: "".to_string(), entity_type: EntityType::Heading6 });
                 i+=1;
                 continue;
             }
@@ -288,7 +291,7 @@ pub fn parse_code(tokens: Vec<Token>) -> Vec<Entity> {
                     value += &tokens[i].value;
                     i+=1;
                 }
-                entities.push(Entity { value, entity_type: EntityType::ListItem });
+                entities.push(Entity { value, value2: "".to_string(), entity_type: EntityType::ListItem });
                 i+=1;
                 continue;
             }
@@ -302,7 +305,7 @@ pub fn parse_code(tokens: Vec<Token>) -> Vec<Entity> {
                     value += &tokens[i].value;
                     i+=1;
                 }
-                entities.push(Entity { value, entity_type: EntityType::Infobox });
+                entities.push(Entity { value, value2: "".to_string(), entity_type: EntityType::Infobox });
                 i+=1;
                 continue;
             }
@@ -316,7 +319,7 @@ pub fn parse_code(tokens: Vec<Token>) -> Vec<Entity> {
                     value += &tokens[i].value;
                     i+=1;
                 }
-                entities.push(Entity { value, entity_type: EntityType::Template });
+                entities.push(Entity { value, value2: "".to_string(), entity_type: EntityType::Template });
                 i+=1;
                 continue;
             }
@@ -330,7 +333,7 @@ pub fn parse_code(tokens: Vec<Token>) -> Vec<Entity> {
                     value += &tokens[i].value;
                     i+=1;
                 }
-                entities.push(Entity { value, entity_type: EntityType::Gallery });
+                entities.push(Entity { value, value2: "".to_string(), entity_type: EntityType::Gallery });
                 i+=1;
                 continue;
             }
@@ -347,7 +350,27 @@ pub fn parse_code(tokens: Vec<Token>) -> Vec<Entity> {
                     i+=1;
                 }
                 value += "|";
-                entities.push(Entity { value, entity_type: EntityType::MarkdownTable });
+                entities.push(Entity { value, value2: "".to_string(), entity_type: EntityType::MarkdownTable });
+                i+=1;
+                continue;
+            }
+        }
+
+        else if tokens[i].token_type == TokenType::TripleBacktick {
+            if tokens[i-1].token_type == TokenType::NEWLINE {
+                let mut value = String::from("");
+                i+=1;
+                while i < tokens.len() && tokens[i].token_type != TokenType::NEWLINE {
+                    value += &tokens[i].value;
+                    i+=1;
+                }
+                let mut value2 = String::from("");
+                i+=1;
+                while i < tokens.len() && tokens[i].token_type != TokenType::TripleBacktick {
+                    value2 += &tokens[i].value;
+                    i+=1;
+                }
+                entities.push(Entity { value, value2, entity_type: EntityType::CodeBlock });
                 i+=1;
                 continue;
             }
@@ -360,7 +383,7 @@ pub fn parse_code(tokens: Vec<Token>) -> Vec<Entity> {
                     text += &tokens[i].value;
                     i+=1;
                 }
-                entities.push(Entity { value: text, entity_type: EntityType::Paragraph });
+                entities.push(Entity { value: text, value2: "".to_string(), entity_type: EntityType::Paragraph });
                 i+=1;
                 continue;
             }

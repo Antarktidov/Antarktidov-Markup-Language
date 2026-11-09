@@ -7,6 +7,7 @@ name = "aml7"
 version = "0.1.0"
 dependencies = [
  "dotenv",
+ "html-escape",
  "rand",
  "unicode-segmentation",
 ]
@@ -33,6 +34,12 @@ dependencies = [
  "libc",
  "wasi",
 ]
+
+[[package]]
+name = "html-escape"
+version = "0.3.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "d45ed4d99334da2a2f221504e8ffc8ad09baf2a452b154465a976bfde697b004"
 
 [[package]]
 name = "libc"
