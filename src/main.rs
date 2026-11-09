@@ -5,6 +5,7 @@ mod level2;
 mod infobox;
 mod gallery;
 mod markdown_tables;
+mod code_blocks;
 
 mod utils;
 
@@ -26,7 +27,7 @@ fn main() {
         if entity.entity_type == EntityType::CodeBlock {
             println!("Code block: {:?}", entity);
 
-            compiled_entities.push(Entity { value: entity.value, value2: "".to_string(), entity_type: entity.entity_type });
+            compiled_entities.push(Entity { value: entity.value, value2: code_blocks::m(&entity.value2), entity_type: entity.entity_type });
             continue;
         }
 
