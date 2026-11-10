@@ -52,6 +52,7 @@ fn main() {
 
         if entity.entity_type == EntityType::WikiTable {
             //scan, parse, compile wikitable
+            println!("Wikitable: {}", entity.value);
             continue;
         }
 
