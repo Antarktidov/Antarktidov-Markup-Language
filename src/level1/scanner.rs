@@ -45,6 +45,9 @@ pub enum TokenType {
     Split,
 
     TripleBacktick, // ```
+
+    OpeningDiv,
+    ClosingDiv,
 }
 
 #[derive(PartialEq)]
@@ -221,6 +224,32 @@ pub fn scan_code(code: &str) -> Vec<Token> {
                     value: "<gallery>".to_string(),
                 }});
                 i+=9;
+                continue;
+            }
+            //<div ...>
+            else  if i + 3 < graphemes.iter().count() && graphemes[i+1] == "d"
+            && graphemes[i+2] == "i" && graphemes[i+3] == "v" {
+                let mut div = String::new();
+                while i < graphemes.iter().count() && graphemes[i] != ">" {
+                    div += &graphemes[i];
+                    i+=1;
+                }
+                div += ">";
+                tokens.push({Token{
+                    token_type: TokenType::OpeningDiv,
+                    value: div,
+                }});
+                i+=1;
+                continue;
+            }
+            //</div>
+            else if i + 4 < graphemes.iter().count() && graphemes[i+1] == "/" && graphemes[i+2] == "d"
+            && graphemes[i+3] == "i" && graphemes[i+4] == "v" && graphemes[i+5] == ">" {
+                tokens.push({Token{
+                    token_type: TokenType::ClosingDiv,
+                    value: "</div>".to_string(),
+                }});
+                i+=6;
                 continue;
             }
         }

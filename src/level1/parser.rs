@@ -20,6 +20,9 @@ pub enum EntityType {
     MarkdownTable,
 
     CodeBlock,
+
+    OpeningDiv,
+    ClosingDiv,
 }
 #[derive(PartialEq)]
 #[derive(Debug)]
@@ -321,6 +324,22 @@ pub fn parse_code(tokens: Vec<Token>) -> Vec<Entity> {
                 }
                 entities.push(Entity { value, value2: "".to_string(), entity_type: EntityType::Template });
                 i+=1;
+                continue;
+            }
+        }
+
+        else if tokens[i].token_type == TokenType::OpeningDiv {
+            if tokens[i-1].token_type == TokenType::NEWLINE {
+                entities.push(Entity { value: tokens[i].value.clone(), value2: "".to_string(), entity_type: EntityType::OpeningDiv });
+                i+=2;
+                continue;
+            }
+        }
+
+        else if tokens[i].token_type == TokenType::ClosingDiv {
+            if tokens[i-1].token_type == TokenType::NEWLINE {
+                entities.push(Entity { value: tokens[i].value.clone(), value2: "".to_string(), entity_type: EntityType::ClosingDiv });
+                i+=2;
                 continue;
             }
         }

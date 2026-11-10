@@ -96,6 +96,11 @@ pub fn compile(entities: Vec<Entity>) -> String {
             is_document_has_markdown_tables = true;
         }
 
+        else if entities[i].entity_type == EntityType::OpeningDiv ||
+        entities[i].entity_type == EntityType::ClosingDiv {
+            output += &entities[i].value;
+        }
+
         else if entities[i].entity_type == EntityType::CodeBlock {
             output += &format!("<pre><code data-code-lang=\"{}\" translate=\"no\">{}</code></pre>", &entities[i].value, &entities[i].value2);
             is_document_has_code_blocks = true;

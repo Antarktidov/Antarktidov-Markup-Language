@@ -19,7 +19,8 @@ fn main() {
     let mut compiled_entities: Vec<parser::Entity> = vec![];
     
     for entity in entities {
-        if entity.entity_type == EntityType::Template {
+        if entity.entity_type == EntityType::Template || entity.entity_type == EntityType::OpeningDiv
+         || entity.entity_type == EntityType::ClosingDiv {
             compiled_entities.push(Entity { value: entity.value, value2: "".to_string(), entity_type: entity.entity_type });
             continue;
         }
