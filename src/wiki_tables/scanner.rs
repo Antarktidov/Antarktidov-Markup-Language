@@ -17,7 +17,8 @@ pub enum WikiTableTokenType {
 
     Other,
 }
-
+#[derive(PartialEq)]
+#[derive(Debug)]
 pub struct WikiTableToken {
     pub token_type: WikiTableTokenType,
     pub value: String,
