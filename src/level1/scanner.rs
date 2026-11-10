@@ -230,9 +230,8 @@ pub fn scan_code(code: &str) -> Vec<Token> {
             else  if i + 3 < graphemes.iter().count() && graphemes[i+1] == "d"
             && graphemes[i+2] == "i" && graphemes[i+3] == "v" {
                 let mut div = String::new();
-                i+=3;
                 while i < graphemes.iter().count() && graphemes[i] != ">" {
-                    div += graphemes[i];
+                    div += &graphemes[i];
                     i+=1;
                 }
                 div += ">";
