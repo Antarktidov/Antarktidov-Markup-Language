@@ -3,7 +3,7 @@ use std::collections::HashSet;
 
 /// Возвращает true, если строка состоит ТОЛЬКО из разрешённых атрибутов
 /// с валидными значениями.
-pub fn is_only_allowed_attributes(input: &str) -> bool {
+pub fn consists_only_of_attributes(input: &str) -> bool {
     let wrapped = format!("<div {}/>", input);
 
     let allowed: HashSet<&str> = ["class", "style", "border", "rowspan", "colspan"]
@@ -18,10 +18,10 @@ pub fn is_only_allowed_attributes(input: &str) -> bool {
             Err(_) => return false, // ошибка парсинга — не наш случай
         };
 
-        if let Token::Attribute { name, value, .. } = token {
+        if let Token::Attribute { local, value, .. } = token {
             seen_any = true;
-            let attr_name = name.as_str().to_lowercase();
-            let attr_value = value.as_str();
+            let attr_name = local.as_str().to_lowercase();
+            let attr_value = value.as_ref().map(|v| v.as_str()).unwrap_or("");
 
             // 1. Имя должно быть в белом списке (отсекает danish, pie и т.п.)
             if !allowed.contains(attr_name.as_str()) {
