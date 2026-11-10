@@ -66,18 +66,26 @@ fn parse(tokens: Vec<WikiTableToken>) -> Vec<WTableLevel1Entity> {
                 && tokens[i].token_type != WikiTableTokenType::DoubleSplit
                 && tokens[i].token_type != WikiTableTokenType::SplitWithDash
                 && brackets_count != 0) {
+                    if tokens[i].token_type == WikiTableTokenType::OpeningBrackets {
+                        brackets_count+=1;
+                    }
+                    else if tokens[i].token_type == WikiTableTokenType::ClosingBrackets {
+                        brackets_count-=1;
+                    }
+
                     value += &tokens[i].value;
                     i+=1;
                 }
                 line.push(value);
             }
             entities.push(WTableLevel1Entity{
-                entity_type: WTableLevel1EntityType::Head,
+                entity_type: WTableLevel1EntityType::BodyLine,
                 value: line,
             });
         }
 
-        i+=1;
+        //i+=1;
+        println!("Цикл");
     }
 
     return entities;
