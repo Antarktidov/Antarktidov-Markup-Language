@@ -1,4 +1,4 @@
-enum WikiTableTokenType {
+pub enum WikiTableTokenType {
     OpeningBrackets,
     ClosingBrackets,
 
@@ -6,7 +6,18 @@ enum WikiTableTokenType {
     DoubleBang,
     Split,
     DoubleSplit,
-    SplitWithDash, // |- Dash — Дефис
+    SplitWithDash, // |-
+    //Dash — Дефис
 
     Other,
+}
+
+pub struct WikiTableToken {
+    pub token_type: WikiTableTokenType,
+    pub value: String,
+}
+
+pub fn scan(table: &str) -> Vec<WikiTableToken> {
+    let mut tokens: Vec<WikiTableToken> = vec![];
+    return tokens;
 }
