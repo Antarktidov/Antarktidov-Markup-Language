@@ -1,4 +1,4 @@
-use crate::{gallery::{compile_gallery, parse_galley, scan_gallery}, infobox::{infobox_compiler, infobox_parser, infobox_scanner, lists::{compile_infobox_list, parse_infoboxes_lists, scan_infoboxes_lists}}, level1::{compile::compile, parser, scanner}, level2::{compile_l2::compile_l2, parser_level2, scanner_level2}, markdown_tables::splitter, parser::{Entity, EntityType}, utils::filesystem};
+use crate::{gallery::{compile_gallery, parse_galley, scan_gallery}, infobox::{infobox_compiler, infobox_parser, infobox_scanner, lists::{compile_infobox_list, parse_infoboxes_lists, scan_infoboxes_lists}}, level1::{compile::compile, parser, scanner}, level2::{compile_l2::compile_l2, parser_level2, scanner_level2}, markdown_tables::splitter, parser::{Entity, EntityType}, utils::{filesystem, final_mod::final_fn}};
 
 mod level1;
 mod level2;
@@ -151,5 +151,7 @@ fn main() {
     println!("compiled_entities {:?}", compiled_entities);
 
     let html = compile(compiled_entities);
-    filesystem::write_file(&html);
+    let final_html = final_fn(&html);
+
+    filesystem::write_file(&final_html);
 }
