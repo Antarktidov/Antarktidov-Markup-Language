@@ -11,23 +11,31 @@ pub fn parse(tokens: Vec<GalleryToken>) -> Vec<GalleryItem> {
     let mut i = 0;
 
     while i < tokens.len() {
-        if tokens[i].token_type == GalleryTokenType::Newline {
-            let mut image = String::from("");
+        if tokens[i].token_type != GalleryTokenType::Newline {
             i+=1;
-            while i < tokens.len() && tokens[i].token_type != GalleryTokenType::Split {
-                image += &tokens[i].value;
-                i+=1;
-            }
+            continue;
+        }
+
+        let mut image = String::from("");
+        i+=1;
+        while i < tokens.len() && tokens[i].token_type != GalleryTokenType::Split
+            && tokens[i].token_type != GalleryTokenType::Newline {
+            image += &tokens[i].value;
             i+=1;
-            let mut caption = String::from("");
+        }
+
+        let mut caption = String::from("");
+        if i < tokens.len() && tokens[i].token_type == GalleryTokenType::Split {
+            i+=1;
             while i < tokens.len() && tokens[i].token_type != GalleryTokenType::Newline {
                 caption += &tokens[i].value;
                 i+=1;
             }
-            gallery_items.push(GalleryItem { image, caption });
         }
 
-        i+=1;
+        if !image.is_empty() {
+            gallery_items.push(GalleryItem { image, caption });
+        }
     }
 
     return gallery_items;
