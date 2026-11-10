@@ -5,6 +5,7 @@ mod level2;
 mod infobox;
 mod gallery;
 mod markdown_tables;
+mod wiki_tables;
 mod code_blocks;
 
 mod utils;
