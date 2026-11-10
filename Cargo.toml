@@ -8,5 +8,6 @@ unicode-segmentation = "1.10"
 dotenv = "0.15.0"
 rand = "0.8"
 html-escape = "*"
-scraper="*"
+htmlparser = "0.2"
+css_inspector = "0.1"
 

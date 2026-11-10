@@ -1,6 +1,6 @@
 use crate::{utils, wiki_tables::parser::{WTableLevel1Entity, WTableLevel1EntityType}};
 
-fn compile(entities: Vec<WTableLevel1Entity>) -> String {
+pub fn compile(entities: Vec<WTableLevel1Entity>) -> String {
     let mut table = String::new();
     let mut i = 0;
 
@@ -29,11 +29,34 @@ fn compile(entities: Vec<WTableLevel1Entity>) -> String {
                 j+=1;
             }
 
-            table += "</tr><thead>";
+            table += "</tr><thead><tbody>";
+        }
+
+        else if entities[i].entity_type == WTableLevel1EntityType::BodyLine {
+            table += "<tr>";
+            let mut j = 0;
+
+            while j < entities[i].value.len() {
+                if utils::attrs::consists_only_of_attributes(&entities[i].value[j]) {
+                    if j + 1 < entities[i].value.len() {
+                        table += &format!("<td {}>{}</td>", entities[i].value[j], entities[i].value[j+1]);
+                    }
+                    j+=1;
+                }
+                else {
+                    table += &format!("<td>{}</td>", entities[i].value[j]);
+                }
+
+                j+=1;
+            }
+
+            table += "</tr>";
         }
 
         i+=1;
     }
+
+    table += "</tbody></table>";
 
 
     return table;

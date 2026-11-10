@@ -107,6 +107,11 @@ pub fn compile(entities: Vec<Entity>) -> String {
             is_document_has_markdown_tables = true;
         }
 
+        else if entities[i].entity_type == EntityType::WikiTable {
+            output += &entities[i].value;
+            //is_document_has_markdown_tables = true;
+        }
+
         else if entities[i].entity_type == EntityType::OpeningDiv ||
         entities[i].entity_type == EntityType::ClosingDiv {
             output += &entities[i].value;
