@@ -49,6 +49,9 @@ pub enum TokenType {
 
     OpeningDiv,
     ClosingDiv,
+
+    OpeningWikitable,
+    ClosingWikitable,
 }
 
 #[derive(PartialEq)]
@@ -275,6 +278,12 @@ pub fn scan_code(code: &str) -> Vec<Token> {
         }
 
         if graphemes[i] == "|" {
+            if i + 1 < graphemes.iter().count() && graphemes[i+1] == "}" {
+                tokens.push(Token { value: "|}".to_string(), token_type: TokenType::ClosingWikitable });
+                i+=2;
+                continue;
+            }
+
             tokens.push(Token { value: "|".to_string(), token_type: TokenType::Split });
             i+=1;
             continue;
@@ -298,6 +307,11 @@ pub fn scan_code(code: &str) -> Vec<Token> {
                     continue;
                 }
                 tokens.push(Token { value: "{{".to_string(), token_type: TokenType::OpeningTemplate });
+                i+=2;
+                continue;
+            }
+            else if i+1 < graphemes.iter().count() && graphemes[i+1] == "|" {
+                tokens.push(Token { value: "{|".to_string(), token_type: TokenType::OpeningWikitable });
                 i+=2;
                 continue;
             }
