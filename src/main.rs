@@ -27,7 +27,6 @@ fn main() {
         }
 
         if entity.entity_type == EntityType::CodeBlock {
-            println!("Code block: {:?}", entity);
 
             compiled_entities.push(Entity { value: entity.value, value2: code_blocks::m(&entity.value2), entity_type: entity.entity_type });
             continue;
@@ -51,17 +50,13 @@ fn main() {
         }
 
         if entity.entity_type == EntityType::WikiTable {
-            //scan, parse, compile wikitable
-            //println!("Wikitable: {}", entity.value);
             let entity_sub_tokens = wiki_tables::scanner::scan(&entity.value);
             let entity_sub_entities = wiki_tables::parser::parse(entity_sub_tokens);
-            //println!("{:?}", entity_sub_entities);
             let compiled_entity_value = wiki_tables::compiler::compile(entity_sub_entities);
 
             //Это для ссылок (и не только)
             let entity_sub_tokens = scanner_level2::scan_l2(&compiled_entity_value);
             let entity_sub_entities = parser_level2::parse_l2(entity_sub_tokens);
-            println!("entity_sub_entities: {:?}", entity_sub_entities);
             let compiled_entity_value = compile_l2(entity_sub_entities);
 
             compiled_entities.push(Entity { value: compiled_entity_value, value2: "".to_string(), entity_type: entity.entity_type });
@@ -69,16 +64,13 @@ fn main() {
         }
 
         if entity.entity_type == EntityType::MarkdownTable {
-            //println!("Markdown-table: {}", entity.value);
             let lines = splitter::split(&entity.value);
             let mut html_md_table = String::from("<table class=\"markdown-table\">");
-            //println!("lines: {:?}", lines);
             let mut is_has_head = true;
             let mut compilled_lines: Vec<Vec<String>> = vec![];
             for l in &lines {
                 let mdtl_tokens = markdown_tables::line::scanner::scan(&l);
                 let cells = markdown_tables::line::parser::parse(mdtl_tokens);
-                println!("Markdown cells: {:?}", cells);
                 let mut compilled_cells: Vec<String> = vec![];
                 for cl in cells {
                     //let mut ncl = String::new();
@@ -136,19 +128,15 @@ fn main() {
 
                 html_md_table += "</tbody></table>";
 
-            println!("html_md_table: {}", html_md_table);
             compiled_entities.push(Entity { value: html_md_table, value2: "".to_string(), entity_type: entity.entity_type });
             continue;
         }
 
         let entity_sub_tokens = scanner_level2::scan_l2(&entity.value);
         let entity_sub_entities = parser_level2::parse_l2(entity_sub_tokens);
-        println!("entity_sub_entities: {:?}", entity_sub_entities);
         let compiled_entity_value = compile_l2(entity_sub_entities);
         compiled_entities.push(Entity { value: compiled_entity_value, value2: "".to_string(), entity_type: entity.entity_type });
     }
-
-    println!("compiled_entities {:?}", compiled_entities);
 
     let html = compile(compiled_entities);
     let final_html = final_fn(&html);

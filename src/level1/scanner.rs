@@ -331,7 +331,5 @@ pub fn scan_code(code: &str) -> Vec<Token> {
 
     tokens.push(Token { value: "\r\n".to_string(), token_type: TokenType::NEWLINE });
 
-    println!("tokens {:?}", tokens);
-
     return tokens;
 }
