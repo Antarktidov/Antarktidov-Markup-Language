@@ -14,7 +14,6 @@ pub fn compile_infobox(entities: Vec<InfoboxEntity>) -> String {
             if entities[i].entity_type == InfoboxEntityType::Gallery {
                 let gallery_tokens = scan_gallery::scan(&entities[i].right_value);
                 let gallery_list_items = parse_galley::parse(gallery_tokens);
-                println!("gallery_list_items: {:?}", gallery_list_items);
                 let compiled_gallery = compile_infobox_gallery::compile(gallery_list_items);
                 infobox_html += &format!("<tr><td colspan=\"2\">{}</td></tr>", compiled_gallery);
             } else {
@@ -27,7 +26,6 @@ pub fn compile_infobox(entities: Vec<InfoboxEntity>) -> String {
          else {
             let right_value = &entities[i].right_value;
             if right_value.starts_with("*") || right_value.starts_with("\r\n*") {
-                println!("**********");
                 let il_tokens = scan_infoboxes_lists::scanner(right_value);
                 let il_items = parse_infoboxes_lists::parse(il_tokens);
                 let nrv = compile_infobox_list::compile_il(il_items);
