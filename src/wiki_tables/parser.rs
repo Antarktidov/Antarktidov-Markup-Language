@@ -29,8 +29,6 @@ fn parse(tokens: Vec<WikiTableToken>) -> Vec<WTableLevel1Entity> {
 
     entities.push(table_attrs_struct);
 
-    let mut brackets_count = 0;
-
     while i < tokens.len() {
         let mut line: Vec<String> = vec![];
 
@@ -54,6 +52,30 @@ fn parse(tokens: Vec<WikiTableToken>) -> Vec<WTableLevel1Entity> {
             });
         }
 
+        else if tokens[i].token_type == WikiTableTokenType::Split || tokens[i].token_type == WikiTableTokenType::DoubleSplit {
+            let mut brackets_count = 0;
+            
+            while i < tokens.len() &&
+             tokens[i].token_type != WikiTableTokenType::SplitWithDash {   
+                let mut value = String::new();
+                i+=1;
+
+                
+                while i < tokens.len() &&
+                (tokens[i].token_type != WikiTableTokenType::Split
+                && tokens[i].token_type != WikiTableTokenType::DoubleSplit
+                && tokens[i].token_type != WikiTableTokenType::SplitWithDash
+                && brackets_count != 0) {
+                    value += &tokens[i].value;
+                    i+=1;
+                }
+                line.push(value);
+            }
+            entities.push(WTableLevel1Entity{
+                entity_type: WTableLevel1EntityType::Head,
+                value: line,
+            });
+        }
 
         i+=1;
     }
