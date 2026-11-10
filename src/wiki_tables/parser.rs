@@ -1,4 +1,4 @@
-use crate::wiki_tables::scanner::{WikiTableToken, WikiTableTokenType};
+use crate::{level1::scanner::TokenType, wiki_tables::scanner::{WikiTableToken, WikiTableTokenType}};
 
 enum WTableLevel1EntityType {
     TableAttrs, // class="wiki-table" style="border: 2px red;"
@@ -30,7 +30,19 @@ fn parse(tokens: Vec<WikiTableToken>) -> Vec<WTableLevel1Entity> {
     entities.push(table_attrs_struct);
 
 
-    
+    while i < tokens.len() {
+        if tokens[i].token_type == WikiTableTokenType::Bang || tokens[i].token_type == WikiTableTokenType::DoubleBang {
+            i+=1;
+            while i < tokens.len() &&
+            (tokens[i].token_type != WikiTableTokenType::Bang
+            && tokens[i].token_type != WikiTableTokenType::DoubleBang
+            && tokens[i].token_type != WikiTableTokenType::SplitWithDash) {
+                
+            }
+        }
+
+        i+=1;
+    }
 
     return entities;
 }
