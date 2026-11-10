@@ -1,0 +1,23 @@
+table.markdown-table,
+table.wikitable{
+	width: 100%;
+	border-collapse:collapse;
+	border-spacing:0;
+	height: auto;
+}
+table.markdown-table,table.markdown-table td, table.markdown-table th,
+table.wikitable,table.wikitable td, table.wikitable th {
+	border: 1px solid #595959;
+}
+table.markdown-table td,table.markdown-table th,
+table.wikitable td,table.wikitable th {
+	padding: 3px;
+	width: 30px;
+	height: 35px;
+}
+table.markdown-table th,
+table.wikitable th {
+	    background: #4e6982;
+	color: #fff; 
+	font-weight: normal;
+}

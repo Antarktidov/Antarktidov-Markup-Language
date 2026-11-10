@@ -1,0 +1,97 @@
+use crate::{level1::scanner::TokenType, wiki_tables::{parser::WTableLevel1EntityType::Head, scanner::{WikiTableToken, WikiTableTokenType}}};
+
+#[derive(Debug)]
+#[derive(PartialEq)]
+pub enum WTableLevel1EntityType {
+    TableAttrs, // class="wiki-table" style="border: 2px red;"
+    Head,
+    BodyLine,
+}
+#[derive(Debug)]
+#[derive(PartialEq)]
+pub struct WTableLevel1Entity {
+    pub entity_type: WTableLevel1EntityType,
+    pub value: Vec<String>,
+}
+pub fn parse(tokens: Vec<WikiTableToken>) -> Vec<WTableLevel1Entity> { 
+    let mut entities: Vec<WTableLevel1Entity> = vec![];
+    let mut i = 0;
+
+    let mut table_attrs = String::new();
+
+    while i < tokens.len() &&
+    ( tokens[i].token_type != WikiTableTokenType::Bang && tokens[i].token_type != WikiTableTokenType::DoubleBang && 
+    tokens[i].token_type != WikiTableTokenType::Split && tokens[i].token_type != WikiTableTokenType::DoubleSplit ){
+        table_attrs += &tokens[i].value;
+        i+=1;
+    }
+
+    let table_attrs_struct = WTableLevel1Entity{
+        entity_type: WTableLevel1EntityType::TableAttrs,
+        value: vec![table_attrs],
+    };
+
+    entities.push(table_attrs_struct);
+
+    while i < tokens.len() {
+        let mut line: Vec<String> = vec![];
+
+        if tokens[i].token_type == WikiTableTokenType::Bang || tokens[i].token_type == WikiTableTokenType::DoubleBang {
+            while i < tokens.len() &&
+             tokens[i].token_type != WikiTableTokenType::SplitWithDash {
+                let mut value = String::new();
+                i+=1;
+                while i < tokens.len() &&
+                (tokens[i].token_type != WikiTableTokenType::Bang
+                && tokens[i].token_type != WikiTableTokenType::DoubleBang
+                && tokens[i].token_type != WikiTableTokenType::SplitWithDash) {
+                    value += &tokens[i].value;
+                    i+=1;
+                }
+                line.push(value);
+            }
+            entities.push(WTableLevel1Entity{
+                entity_type: WTableLevel1EntityType::Head,
+                value: line,
+            });
+        }
+
+        else if tokens[i].token_type == WikiTableTokenType::Split || tokens[i].token_type == WikiTableTokenType::DoubleSplit {
+            while i < tokens.len() &&
+             tokens[i].token_type != WikiTableTokenType::SplitWithDash {
+                let mut value = String::new();
+                let mut brackets_count = 0;
+                i+=1;
+
+                while i < tokens.len() {
+                    // Пока находимся внутри [[ ... ]], разделители являются обычным текстом
+                    if brackets_count == 0 &&
+                    (tokens[i].token_type == WikiTableTokenType::Split
+                    || tokens[i].token_type == WikiTableTokenType::DoubleSplit
+                    || tokens[i].token_type == WikiTableTokenType::SplitWithDash) {
+                        break;
+                    }
+
+                    if tokens[i].token_type == WikiTableTokenType::OpeningBrackets {
+                        brackets_count+=1;
+                    }
+                    else if tokens[i].token_type == WikiTableTokenType::ClosingBrackets {
+                        brackets_count-=1;
+                    }
+
+                    value += &tokens[i].value;
+                    i+=1;
+                }
+                line.push(value);
+            }
+            entities.push(WTableLevel1Entity{
+                entity_type: WTableLevel1EntityType::BodyLine,
+                value: line,
+            });
+        }
+
+        i+=1;
+    }
+
+    return entities;
+}

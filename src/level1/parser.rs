@@ -19,6 +19,7 @@ pub enum EntityType {
 
     Gallery,
     MarkdownTable,
+    WikiTable,
 
     CodeBlock,
 
@@ -338,6 +339,20 @@ pub fn parse_code(tokens: Vec<Token>) -> Vec<Entity> {
                     i+=1;
                 }
                 entities.push(Entity { value, value2: "".to_string(), entity_type: EntityType::Template });
+                i+=1;
+                continue;
+            }
+        }
+
+        else if tokens[i].token_type == TokenType::OpeningWikitable {
+            if tokens[i-1].token_type == TokenType::NEWLINE {
+                let mut value = String::from("");
+                i+=1;
+                while i < tokens.len() && tokens[i].token_type != TokenType::ClosingWikitable {
+                    value += &tokens[i].value;
+                    i+=1;
+                }
+                entities.push(Entity { value, value2: "".to_string(), entity_type: EntityType::WikiTable });
                 i+=1;
                 continue;
             }

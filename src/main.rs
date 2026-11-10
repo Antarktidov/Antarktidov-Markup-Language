@@ -5,6 +5,7 @@ mod level2;
 mod infobox;
 mod gallery;
 mod markdown_tables;
+mod wiki_tables;
 mod code_blocks;
 
 mod utils;
@@ -45,6 +46,24 @@ fn main() {
             let entity_sub_tokens = scan_gallery::scan(&entity.value);
             let entity_sub_entities = parse_galley::parse(entity_sub_tokens);
             let compiled_entity_value = compile_gallery::compile(entity_sub_entities);
+            compiled_entities.push(Entity { value: compiled_entity_value, value2: "".to_string(), entity_type: entity.entity_type });
+            continue;
+        }
+
+        if entity.entity_type == EntityType::WikiTable {
+            //scan, parse, compile wikitable
+            //println!("Wikitable: {}", entity.value);
+            let entity_sub_tokens = wiki_tables::scanner::scan(&entity.value);
+            let entity_sub_entities = wiki_tables::parser::parse(entity_sub_tokens);
+            //println!("{:?}", entity_sub_entities);
+            let compiled_entity_value = wiki_tables::compiler::compile(entity_sub_entities);
+
+            //Это для ссылок (и не только)
+            let entity_sub_tokens = scanner_level2::scan_l2(&compiled_entity_value);
+            let entity_sub_entities = parser_level2::parse_l2(entity_sub_tokens);
+            println!("entity_sub_entities: {:?}", entity_sub_entities);
+            let compiled_entity_value = compile_l2(entity_sub_entities);
+
             compiled_entities.push(Entity { value: compiled_entity_value, value2: "".to_string(), entity_type: entity.entity_type });
             continue;
         }
