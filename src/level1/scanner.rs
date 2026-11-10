@@ -32,6 +32,7 @@ pub enum TokenType {
     ClosingH6,
 
     STAR,
+    NUMBER, //№
     NEWLINE,
     OTHER,
 
@@ -263,6 +264,12 @@ pub fn scan_code(code: &str) -> Vec<Token> {
 
         if graphemes[i] == "*" {
             tokens.push(Token { value: "*".to_string(), token_type: TokenType::STAR });
+            i+=1;
+            continue;
+        }
+
+        if graphemes[i] == "№" {
+            tokens.push(Token { value: "*".to_string(), token_type: TokenType::NUMBER });
             i+=1;
             continue;
         }
