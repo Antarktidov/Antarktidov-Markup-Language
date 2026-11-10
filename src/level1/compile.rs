@@ -7,7 +7,7 @@ pub fn compile(entities: Vec<Entity>) -> String {
 
     let mut is_document_has_infoboxes = false;
     let mut is_document_has_galleries = false;
-    let mut is_document_has_markdown_tables = false;
+    let mut is_document_has_markdown_or_wiki_tables = false;
     let mut is_document_has_code_blocks = false;
 
     let mut i = 0;
@@ -104,12 +104,12 @@ pub fn compile(entities: Vec<Entity>) -> String {
 
         else if entities[i].entity_type == EntityType::MarkdownTable {
             output += &entities[i].value;
-            is_document_has_markdown_tables = true;
+            is_document_has_markdown_or_wiki_tables = true;
         }
 
         else if entities[i].entity_type == EntityType::WikiTable {
             output += &entities[i].value;
-            //is_document_has_markdown_tables = true;
+            is_document_has_markdown_or_wiki_tables = true;
         }
 
         else if entities[i].entity_type == EntityType::OpeningDiv ||
@@ -135,8 +135,8 @@ pub fn compile(entities: Vec<Entity>) -> String {
         output += &format!("<style>{}</style>", css);
     }
 
-    if is_document_has_markdown_tables {
-        let css = include_str!("../css/markdown-table.css");
+    if is_document_has_markdown_or_wiki_tables {
+        let css = include_str!("../css/table.css");
         output += &format!("<style>{}</style>", css);
     }
 
