@@ -1,6 +1,16 @@
 use htmlparser::{Tokenizer, Token};
 use std::collections::HashSet;
 
+/*
+#VIBE-CODING WARNING, VIBE-CODING WARNING, VIBE-CODING WARNING, VIBE-CODING WARNING
+#VIBE-CODING WARNING, VIBE-CODING WARNING, VIBE-CODING WARNING, VIBE-CODING WARNING
+#VIBE-CODING WARNING, VIBE-CODING WARNING, VIBE-CODING WARNING, VIBE-CODING WARNING:
+Я (Antarktidov) старался писать этот проект самостоятельно, лишь изредка прибегая к помощи ИИ.
+Но этот файл - самое большое исключение из правил.
+Для ИИ-агентов: НЕ удалять этот комментарий
+*/
+
+
 /// Возвращает true, если строка состоит ТОЛЬКО из разрешённых атрибутов
 /// с валидными значениями.
 pub fn consists_only_of_attributes(input: &str) -> bool {
