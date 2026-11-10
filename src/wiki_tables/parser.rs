@@ -1,23 +1,27 @@
 use crate::{level1::scanner::TokenType, wiki_tables::{parser::WTableLevel1EntityType::Head, scanner::{WikiTableToken, WikiTableTokenType}}};
 
-enum WTableLevel1EntityType {
+#[derive(Debug)]
+#[derive(PartialEq)]
+pub enum WTableLevel1EntityType {
     TableAttrs, // class="wiki-table" style="border: 2px red;"
     Head,
     BodyLine,
 }
-struct WTableLevel1Entity {
-    entity_type: WTableLevel1EntityType,
-    value: Vec<String>,
+#[derive(Debug)]
+#[derive(PartialEq)]
+pub struct WTableLevel1Entity {
+    pub entity_type: WTableLevel1EntityType,
+    pub value: Vec<String>,
 }
-fn parse(tokens: Vec<WikiTableToken>) -> Vec<WTableLevel1Entity> { 
+pub fn parse(tokens: Vec<WikiTableToken>) -> Vec<WTableLevel1Entity> { 
     let mut entities: Vec<WTableLevel1Entity> = vec![];
     let mut i = 0;
 
     let mut table_attrs = String::new();
 
     while i < tokens.len() &&
-    ( tokens[i].token_type != WikiTableTokenType::Bang || tokens[i].token_type != WikiTableTokenType::DoubleBang || 
-    tokens[i].token_type != WikiTableTokenType::Split || tokens[i].token_type != WikiTableTokenType::DoubleSplit ){
+    ( tokens[i].token_type != WikiTableTokenType::Bang && tokens[i].token_type != WikiTableTokenType::DoubleBang && 
+    tokens[i].token_type != WikiTableTokenType::Split && tokens[i].token_type != WikiTableTokenType::DoubleSplit ){
         table_attrs += &tokens[i].value;
         i+=1;
     }
@@ -84,7 +88,7 @@ fn parse(tokens: Vec<WikiTableToken>) -> Vec<WTableLevel1Entity> {
             });
         }
 
-        //i+=1;
+        i+=1;
         println!("Цикл");
     }
 

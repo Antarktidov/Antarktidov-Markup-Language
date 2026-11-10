@@ -53,6 +53,9 @@ fn main() {
         if entity.entity_type == EntityType::WikiTable {
             //scan, parse, compile wikitable
             println!("Wikitable: {}", entity.value);
+            let entity_sub_tokens = wiki_tables::scanner::scan(&entity.value);
+            let entity_sub_entities = wiki_tables::parser::parse(entity_sub_tokens);
+            println!("{:?}", entity_sub_entities);
             continue;
         }
 
