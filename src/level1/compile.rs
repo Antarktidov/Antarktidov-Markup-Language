@@ -61,6 +61,17 @@ pub fn compile(entities: Vec<Entity>) -> String {
             continue;
         }
 
+        else if entities[i].entity_type == EntityType::OrderedListItem {
+            output += "<ol>";
+            while i < entities.len() && entities[i].entity_type == EntityType::OrderedListItem {
+                output += &format!("<li>{}</li>", entities[i].value);
+                i+=1;
+            }
+            output += "</ol>";
+            i+=1;
+            continue;
+        }
+
         else if entities[i].entity_type == EntityType::Template {
             let args: Vec<String> = env::args().collect();
 
