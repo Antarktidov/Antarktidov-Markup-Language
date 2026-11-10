@@ -1,6 +1,6 @@
 [package]
-name = "Antarktidov Markup Language"
-version = "0.2.0"
+name = "Alpha: Antarktidov Markup Language"
+version = "1.0.0"
 edition = "2024"
 
 [dependencies]
