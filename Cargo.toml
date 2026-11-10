@@ -1,5 +1,5 @@
 [package]
-name = "Alpha: Antarktidov Markup Language"
+name = "aml-alpha"
 version = "1.0.0"
 edition = "2024"
 
