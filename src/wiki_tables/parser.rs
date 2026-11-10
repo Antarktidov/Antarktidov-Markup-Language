@@ -79,7 +79,9 @@ pub fn parse(tokens: Vec<WikiTableToken>) -> Vec<WTableLevel1Entity> {
 
                     value += &tokens[i].value;
                     i+=1;
+                    print!("{}", value);
                 }
+                println!("");
                 line.push(value);
             }
             entities.push(WTableLevel1Entity{
