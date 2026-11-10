@@ -8,6 +8,7 @@ pub enum EntityType {
     Infobox,
 
     ListItem,
+    OrderedListItem,
     Paragraph,
     Heading1,
     Heading2,
@@ -295,6 +296,20 @@ pub fn parse_code(tokens: Vec<Token>) -> Vec<Entity> {
                     i+=1;
                 }
                 entities.push(Entity { value, value2: "".to_string(), entity_type: EntityType::ListItem });
+                i+=1;
+                continue;
+            }
+        }
+
+        else if tokens[i].token_type == TokenType::NUMBER {
+            if tokens[i-1].token_type == TokenType::NEWLINE {
+                let mut value = String::from("");
+                i+=2;
+                while i < tokens.len() && tokens[i].token_type != TokenType::NEWLINE {
+                    value += &tokens[i].value;
+                    i+=1;
+                }
+                entities.push(Entity { value, value2: "".to_string(), entity_type: EntityType::OrderedListItem });
                 i+=1;
                 continue;
             }
