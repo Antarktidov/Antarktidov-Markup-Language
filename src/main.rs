@@ -49,6 +49,11 @@ fn main() {
             continue;
         }
 
+        if entity.entity_type == EntityType::WikiTable {
+            //scan, parse, compile wikitable
+            continue;
+        }
+
         if entity.entity_type == EntityType::MarkdownTable {
             //println!("Markdown-table: {}", entity.value);
             let lines = splitter::split(&entity.value);
