@@ -1,5 +1,5 @@
 fn main() {
-    println!("cargo:warning=BUILD SCRIPT STARTED"); // Это сообщение вы увидите при сборке
+    println!("cargo:warning=BUILD SCRIPT STARTED");
     
     if std::env::var("CARGO_CFG_TARGET_OS").unwrap() == "windows" {
 
