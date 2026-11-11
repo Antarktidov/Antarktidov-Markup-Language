@@ -9,4 +9,16 @@
 ## О языке
 Данный язык я сделал, чтобы вести что-то вроде личных заметок. Взял то, что мне больше всего мне нравится в Markdown и Вики-разметке. И то, что смог, то и реализовал. Не судите строго, первый языке всё-таки. Но замечания и предложения по улучшению (если вы пользователь) и советы (если вы опытный разработчик языков) оставляйте в разделе [issues](https://github.com/Antarktidov/Antarktidov-Markup-Language/issues).
 ## Начало работы
-Скачать язык можно со страницы [releases](https://github.com/Antarktidov/Antarktidov-Markup-Language/releases/tag/alpha-1.1.1). Просто скачиваете exe-шник и всё. Чтобы можно было вызвать язык из любого места, нужно добавить путь к нему в переменную PATH. О том, как это сделать, см. на сайте [remontka.pro](https://remontka.pro/add-to-path-variable-windows/).
+Скачать язык можно со страницы [releases](https://github.com/Antarktidov/Antarktidov-Markup-Language/releases). Просто скачиваете exe-шник и всё. Чтобы можно было вызвать язык из любого места, нужно добавить путь к нему в переменную PATH. О том, как это сделать, см. на сайте [remontka.pro](https://remontka.pro/add-to-path-variable-windows/).
+После добавления нужно в папке, где вы будете работать с языком, создать файл ``.env``.
+Пример содержимого:
+```env
+domain=http://localhost
+title=Заголовок
+html_lang=ru
+```
+Теперь давайте создадим наш первый файл: ``hello.aml``
+```markdown
+# Hello
+Привет, aml!
+```
