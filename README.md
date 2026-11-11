@@ -204,3 +204,21 @@ Aml написан с использованием следующих языко
 | Yogurt
 |}
 ```
+Внутри таблиц частично поддерживается разметка (поддерживается всё, что в пункте «Базовые элементы абзаца»).
+## CSS и JS
+Страницы можно кастомизировать через css и js. Для этого подключите нужные страницы файле ``.env``:
+```env
+domain=http://localhost
+title=Заголовок
+html_lang=ru
+css="stylefile"
+js="script"
+```
+или:
+```env
+domain=http://localhost
+title=Заголовок
+html_lang=ru
+css="stylefile,stylefile2"
+js="script1,script2,script3"
+```
