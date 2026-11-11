@@ -153,4 +153,28 @@ print("Hello, world!")
 ```/
 ```
 Примечание: символ / тут лишний.
-
+### Div-элементы
+Разработчик позаботился, чтобы язык поддерживал обычные div-элементы:
+```html
+<div class="test" style="padding: 1rem; border: 2px solid red; border-radius: 12px">
+Aml написан с использованием следующих языков:
+* Rust
+* Css
+* Js
+* Html
+</div>
+```
+Результат:
+```html
+<div class="test" style="padding: 1rem; border: 2px solid red; border-radius: 12px">
+    <p>Aml написан с использованием следующих языков:</p>
+    <ul>
+        <li>Rust</li>
+        <li>Css</li>
+        <li>Js</li>
+        <li>Html</li>
+    </ul>
+</div>
+```
+> [!WARNING]  
+> Для корректной компиляции открывающий и закрывающий div должны быть в начале строки и занимать всю строку.
