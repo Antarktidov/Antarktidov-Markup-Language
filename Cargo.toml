@@ -1,6 +1,6 @@
 [package]
 name = "aml-alpha"
-version = "1.0.0"
+version = "1.1.0"
 edition = "2024"
 
 [dependencies]
@@ -10,4 +10,7 @@ rand = "0.8"
 html-escape = "*"
 htmlparser = "0.2"
 css_inspector = "0.1"
+
+[target.'cfg(windows)'.build-dependencies]
+winresource = "0.1"
 

@@ -4,20 +4,22 @@ pub fn final_fn(input: &str) -> String {
     let title = env::var("title").expect("title must be set");
     let lang = env::var("lang").expect("lang must be set");
 
-    let css = env::var("css").expect("css must be set");
-    let js  = env::var("js").expect("js must be set");
-
-    let csss = css.split(",");
-    let jss = js.split(",");
-
+    
+    let mut js_html = String::new();
     let mut css_html = String::new();
-    for part in csss {
-        css_html += &format!("<link rel=\"stylesheet\" href=\"{}.css\">", part);
+
+    if let Ok(css) = env::var("css") {
+        let csss = css.split(",");
+        for part in csss {
+            css_html += &format!("<link rel=\"stylesheet\" href=\"{}.css\">", part);
+        }
     }
 
-    let mut js_html = String::new();
-    for part in jss {
-        js_html += &format!("<script src=\"{}.js\"></script>", part);
+    if let Ok(js) = env::var("js") {
+        let jss = js.split(",");
+        for part in jss {
+            js_html += &format!("<script src=\"{}.js\"></script>", part);
+        }
     }
 
     let output = format!(r#"
