@@ -20,7 +20,6 @@ pub fn parse_infobox(tokens: Vec<InfoboxToken>) -> Vec<InfoboxEntity> {
     let mut i = 0;
 
     while i < tokens.len() {
-        println!("{:?}", tokens[i]);
         if tokens[i].token_type == InfoboxTokenType::Other {
             let mut left_value = String::from("");
             //i+=1;

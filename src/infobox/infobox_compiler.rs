@@ -10,7 +10,6 @@ pub fn compile_infobox(entities: Vec<InfoboxEntity>) -> String {
     let mut infobox_html = String::from("<table class=\"aml-infobox\">");
     let mut i = 0;
     while i < entities.len() {
-        println!("{}\\конец", entities[i].left_value);
         if entities[i].left_value == "Изображение" || entities[i].left_value == "\r\nИзображение" {
             if entities[i].entity_type == InfoboxEntityType::Gallery {
                 let gallery_tokens = scan_gallery::scan(&entities[i].right_value);
