@@ -1,4 +1,4 @@
-use crate::level1::scanner::Token;
+﻿use crate::level1::scanner::Token;
 use crate::level1::scanner::TokenType;
 
 #[derive(PartialEq)]
@@ -213,6 +213,7 @@ pub fn parse_code(tokens: Vec<Token>) -> Vec<Entity> {
         else if tokens[i].token_type == TokenType::OpeningH1 {
             if tokens[i-1].token_type == TokenType::NEWLINE {
                 let mut value = String::from("");
+                i+=1;
                 while i < tokens.len() && tokens[i].token_type != TokenType::ClosingH1 {
                     value += &tokens[i].value;
                     i+=1;
@@ -226,6 +227,7 @@ pub fn parse_code(tokens: Vec<Token>) -> Vec<Entity> {
         else if tokens[i].token_type == TokenType::OpeningH2 {
             if tokens[i-1].token_type == TokenType::NEWLINE {
                 let mut value = String::from("");
+                i+=1;
                 while i < tokens.len() && tokens[i].token_type != TokenType::ClosingH2 {
                     value += &tokens[i].value;
                     i+=1;
@@ -239,6 +241,7 @@ pub fn parse_code(tokens: Vec<Token>) -> Vec<Entity> {
         else if tokens[i].token_type == TokenType::OpeningH3 {
             if tokens[i-1].token_type == TokenType::NEWLINE {
                 let mut value = String::from("");
+                i+=1;
                 while i < tokens.len() && tokens[i].token_type != TokenType::ClosingH3 {
                     value += &tokens[i].value;
                     i+=1;
@@ -252,6 +255,7 @@ pub fn parse_code(tokens: Vec<Token>) -> Vec<Entity> {
         else if tokens[i].token_type == TokenType::OpeningH4 {
             if tokens[i-1].token_type == TokenType::NEWLINE {
                 let mut value = String::from("");
+                i+=1;
                 while i < tokens.len() && tokens[i].token_type != TokenType::ClosingH4 {
                     value += &tokens[i].value;
                     i+=1;
@@ -265,6 +269,7 @@ pub fn parse_code(tokens: Vec<Token>) -> Vec<Entity> {
         else if tokens[i].token_type == TokenType::OpeningH5 {
             if tokens[i-1].token_type == TokenType::NEWLINE {
                 let mut value = String::from("");
+                i+=1;
                 while i < tokens.len() && tokens[i].token_type != TokenType::ClosingH5 {
                     value += &tokens[i].value;
                     i+=1;
@@ -278,6 +283,7 @@ pub fn parse_code(tokens: Vec<Token>) -> Vec<Entity> {
         else if tokens[i].token_type == TokenType::OpeningH6 {
             if tokens[i-1].token_type == TokenType::NEWLINE {
                 let mut value = String::from("");
+                i+=1;
                 while i < tokens.len() && tokens[i].token_type != TokenType::ClosingH6 {
                     value += &tokens[i].value;
                     i+=1;
