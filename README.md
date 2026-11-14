@@ -228,7 +228,7 @@ Aml написан с использованием следующих языко
 ## CSS и JS
 **Актуально для версии [alpha-1.1.3](https://github.com/Antarktidov/Antarktidov-Markup-Language/releases/tag/alpha-1.1.3)**
 
-Страницы можно кастомизировать через css и js. Для этого подключите нужные страницы файле ``.env``:
+Страницы можно кастомизировать через css и js. Для этого подключите нужные страницы в файле ``.env``:
 ```env
 domain=http://localhost
 title=Заголовок
