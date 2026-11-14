@@ -10,7 +10,7 @@
 Данный язык я (Antarktidov) сделал, чтобы вести что-то вроде личных заметок. Взял то, что больше всего мне нравится в Markdown и Вики-разметке. И то, что смог, то и реализовал. Не судите строго, первый языке всё-таки. Но замечания и предложения по улучшению (если вы пользователь) и советы (если вы опытный разработчик языков) оставляйте в разделе [issues](https://github.com/Antarktidov/Antarktidov-Markup-Language/issues).
 
 ## Начало работы
-**Актуально для версии [alpha-1.1.2](https://github.com/Antarktidov/Antarktidov-Markup-Language/releases/tag/alpha-1.1.2)**
+**Актуально для версии [alpha-1.1.3](https://github.com/Antarktidov/Antarktidov-Markup-Language/releases/tag/alpha-1.1.3)**
 
 Скачать язык можно со страницы [releases](https://github.com/Antarktidov/Antarktidov-Markup-Language/releases). Просто скачиваете exe-шник и всё. Чтобы можно было вызвать язык из любого места, нужно добавить путь к нему в переменную PATH. О том, как это сделать, см. на сайте [remontka.pro](https://remontka.pro/add-to-path-variable-windows/).
 После добавления нужно в папке, где вы будете работать с языком, создать файл ``.env``.
@@ -39,7 +39,7 @@ aml hello.aml hello.html
 
 Теперь рассмотрим синтаксис подробнее:
 ## Синтаксис
-**Актуально для версии [alpha-1.1.2](https://github.com/Antarktidov/Antarktidov-Markup-Language/releases/tag/alpha-1.1.2)**
+**Актуально для версии [alpha-1.1.3](https://github.com/Antarktidov/Antarktidov-Markup-Language/releases/tag/alpha-1.1.3)**
 
 ### Заголовки
 Язык поддерживает заголовки как в Markdown:
@@ -61,8 +61,14 @@ aml hello.aml hello.html
 ====== Заголовок 6 ======
 ```
 А также обычные html-заголовки:
-> [!WARNING]  
-> Тут баг
+```html
+<h1>Заголовок 1</h1>
+<h2>Заголовок 2</h2>
+<h3>Заголовок 3</h3>
+<h4>Заголовок 4</h4>
+<h5>Заголовок 5</h5>
+<h6>Заголовок 6</h6>
+```
 ### Базовые элементы текста
 ```markdown
 # Залоловок
@@ -220,7 +226,7 @@ Aml написан с использованием следующих языко
 ```
 Внутри таблиц частично поддерживается разметка (поддерживается всё, что в пункте «Базовые элементы абзаца»).
 ## CSS и JS
-**Актуально для версии [alpha-1.1.2](https://github.com/Antarktidov/Antarktidov-Markup-Language/releases/tag/alpha-1.1.2)**
+**Актуально для версии [alpha-1.1.3](https://github.com/Antarktidov/Antarktidov-Markup-Language/releases/tag/alpha-1.1.3)**
 
 Страницы можно кастомизировать через css и js. Для этого подключите нужные страницы файле ``.env``:
 ```env
