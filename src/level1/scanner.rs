@@ -35,6 +35,7 @@ pub enum TokenType {
     NUMBER, //№
     NEWLINE,
     OTHER,
+    BACKSLASH,
 
     OpeningTemplate,
     ClosingTemplate,
@@ -68,12 +69,9 @@ pub fn scan_code(code: &str) -> Vec<Token> {
 
     while i < graphemes.len() {
         if graphemes[i] == "\\" {
-            if i+1 < graphemes.iter().count() {
-                i+=1;
-                tokens.push(Token { value: "\\".to_string() + graphemes[i], token_type: TokenType::OTHER });
-                i+=2;
-                continue;
-            }
+            tokens.push(Token { value: "\\".to_string(), token_type: TokenType::BACKSLASH });
+            i+=1;
+            continue;
         }
 
         if graphemes[i] == "#" {
