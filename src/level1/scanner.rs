@@ -67,6 +67,15 @@ pub fn scan_code(code: &str) -> Vec<Token> {
     let mut i = 0;
 
     while i < graphemes.len() {
+        if graphemes[i] == "\\" {
+            if i+1 < graphemes.iter().count() {
+                i+=1;
+                tokens.push(Token { value: "\\".to_string() + graphemes[i], token_type: TokenType::OTHER });
+                i+=2;
+                continue;
+            }
+        }
+
         if graphemes[i] == "#" {
             if i + 1 < graphemes.len() && graphemes[i+1] == "#" {
                 if i + 2 < graphemes.len() && graphemes[i+2] == "#" {
