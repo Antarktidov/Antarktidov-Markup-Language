@@ -10,6 +10,10 @@ pub enum EntityTypeLevel2 {
     WikiFileWithWidth,
     AmlImg,
     AmlImgWithWidth,
+
+    OpeningSpoiler,
+    ClosingSpoiler,
+
     Other,
 }
 
@@ -129,6 +133,19 @@ pub fn parse_l2(tokens: Vec<TokenLevel2>) -> Vec<EntityLevel2> {
             }
             
         }
+
+        else if tokens[i].token_type == TokenTypeLevel2::OpeningSpoiler {
+            entities.push(EntityLevel2 { value1: tokens[i].value.clone(), value2: "".to_string(), entity_type: EntityTypeLevel2::OpeningSpoiler });
+            i+=1;
+            continue;
+        }
+
+        else if tokens[i].token_type == TokenTypeLevel2::ClosingSpoiler {
+            entities.push(EntityLevel2 { value1: tokens[i].value.clone(), value2: "".to_string(), entity_type: EntityTypeLevel2::ClosingSpoiler});
+            i+=1;
+            continue;
+        }
+
         else {
             entities.push(EntityLevel2 { value1: tokens[i].value.clone(), value2: "".to_string(), entity_type: EntityTypeLevel2::Other });
             i+=1;
