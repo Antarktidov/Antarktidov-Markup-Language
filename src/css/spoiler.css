@@ -1,4 +1,6 @@
 .spoiler {
     background-color: black;
+}
+.spoiler a {
     pointer-events: none;
 }
