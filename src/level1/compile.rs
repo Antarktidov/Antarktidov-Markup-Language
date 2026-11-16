@@ -75,7 +75,7 @@ pub fn compile(entities: Vec<Entity>) -> String {
         else if entities[i].entity_type == EntityType::BlockquoteLine {
             output += "<blockquote>";
             while i < entities.len() && entities[i].entity_type == EntityType::BlockquoteLine {
-                output += &entities[i].value;
+                output += &format!("{}<br>", &entities[i].value);
                 i+=1;
             }
             output += "</blockquote>";
