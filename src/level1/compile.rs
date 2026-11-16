@@ -72,6 +72,17 @@ pub fn compile(entities: Vec<Entity>) -> String {
             continue;
         }
 
+        else if entities[i].entity_type == EntityType::BlockquoteLine {
+            output += "<blockquote>";
+            while i < entities.len() && entities[i].entity_type == EntityType::BlockquoteLine {
+                output += &entities[i].value;
+                i+=1;
+            }
+            output += "</blockquote>";
+            i+=1;
+            continue;
+        }
+
         else if entities[i].entity_type == EntityType::Template {
             let args: Vec<String> = env::args().collect();
 

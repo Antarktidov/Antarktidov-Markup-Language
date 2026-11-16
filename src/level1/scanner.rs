@@ -34,6 +34,7 @@ pub enum TokenType {
     STAR,
     NUMBER, //№
     NEWLINE,
+    PIPE,
     OTHER,
 
     OpeningTemplate,
@@ -267,6 +268,12 @@ pub fn scan_code(code: &str) -> Vec<Token> {
 
         if graphemes[i] == "*" {
             tokens.push(Token { value: "*".to_string(), token_type: TokenType::STAR });
+            i+=1;
+            continue;
+        }
+
+        if graphemes[i] == ">" {
+            tokens.push(Token { value: ">".to_string(), token_type: TokenType::PIPE });
             i+=1;
             continue;
         }
