@@ -1,4 +1,16 @@
 use std::env;
+use rand::Rng;
+
+extern crate rand;
+
+use rand::distributions::Alphanumeric;
+
+fn generate_id(rng: &mut impl Rng) -> String {
+    rng.sample_iter(&Alphanumeric)
+        .take(30)
+        .map(char::from)
+        .collect()
+}
 
 use crate::level2::parser_level2::{EntityLevel2, EntityTypeLevel2};
 
@@ -27,6 +39,16 @@ pub fn compile_l2(entities: Vec<EntityLevel2>) -> String {
         }
         else if entity.entity_type == EntityTypeLevel2::WikiFileWithWidth {
             compiled_line += &format!("<img src=\"{}/File/{}\" width=\"{}\">", domain, entity.value1, entity.value2);
+        }
+        else if entity.entity_type == EntityTypeLevel2::OpeningSpoiler {
+            let mut rng = rand::thread_rng();
+            let rand_identifer = generate_id(&mut rng);
+            
+            compiled_line += &format!("<span class=\"spoiler\" data-spoiler-id=\"{}\" onclick=\"showSpoiler('{}')\">",
+            rand_identifer, rand_identifer);
+        }
+        else if entity.entity_type == EntityTypeLevel2::ClosingSpoiler {
+            compiled_line += "</span>";
         }
         else if entity.entity_type == EntityTypeLevel2::Other {
             compiled_line += &entity.value1;

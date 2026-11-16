@@ -9,6 +9,8 @@ pub enum TokenTypeLevel2 {
     ClosingRoundBraces,
     OpeningBrackets,
     ClosingBrackets,
+    OpeningSpoiler,
+    ClosingSpoiler,
 
     Split,
     Bang,
@@ -75,6 +77,26 @@ pub fn scan_l2(line: &str) -> Vec<TokenLevel2> {
             tokens.push(TokenLevel2 { value: "".to_string(), token_type: TokenTypeLevel2::Bang });
             i+=1;
             continue;
+        }
+        //<spoiler>
+        //</spoiler>
+        else if graphemes[i] == "<" {
+            if i + 9 < graphemes.iter().count() && graphemes[i+1] == "/" && graphemes[i+2] == "s"
+            && graphemes[i+3] == "p" && graphemes[i+4] == "o" && graphemes[i+5] == "i"
+            && graphemes[i+6] == "l" && graphemes[i+7] == "e" && graphemes[i+8] == "r"
+            && graphemes[i+9] == ">" {
+                tokens.push(TokenLevel2 { value: "</spoiler>".to_string(), token_type: TokenTypeLevel2::ClosingSpoiler });
+                i+=10;
+                continue;
+            }
+            if i + 8 < graphemes.iter().count() && graphemes[i+1] == "s"
+            && graphemes[i+2] == "p" && graphemes[i+3] == "o" && graphemes[i+4] == "i"
+            && graphemes[i+5] == "l" && graphemes[i+6] == "e" && graphemes[i+7] == "r"
+            && graphemes[i+8] == ">" {
+                tokens.push(TokenLevel2 { value: "<spoiler>".to_string(), token_type: TokenTypeLevel2::OpeningSpoiler });
+                i+=9;
+                continue;
+            }
         }
         else {
             tokens.push(TokenLevel2 { value: graphemes[i].to_string(), token_type: TokenTypeLevel2::Other });
