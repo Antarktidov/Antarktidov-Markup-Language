@@ -57,7 +57,6 @@ pub fn compile(entities: Vec<Entity>) -> String {
                 i+=1;
             }
             output += "</ul>";
-            i+=1;
             continue;
         }
 
@@ -68,7 +67,16 @@ pub fn compile(entities: Vec<Entity>) -> String {
                 i+=1;
             }
             output += "</ol>";
-            i+=1;
+            continue;
+        }
+
+        else if entities[i].entity_type == EntityType::BlockquoteLine {
+            output += "<blockquote>";
+            while i < entities.len() && entities[i].entity_type == EntityType::BlockquoteLine {
+                output += &format!("{}<br>", &entities[i].value);
+                i+=1;
+            }
+            output += "</blockquote>";
             continue;
         }
 
