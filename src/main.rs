@@ -9,6 +9,7 @@ mod wiki_tables;
 mod code_blocks;
 
 mod utils;
+mod tests;
 
 use dotenv::dotenv;
 
