@@ -140,6 +140,11 @@ pub fn compile(entities: Vec<Entity>) -> String {
         let css = include_str!("../css/code-blocks.css");
         output += &format!("<style>{}</style>", css);
     }
+    let spoiler_css = include_str!("../css/spoiler.css");
+    output += &format!("<style>{}</style>", spoiler_css);
+
+    let spoiler_js = include_str!("../js/spoiler.js");
+    output += &format!("<script>{}</script>", spoiler_js);
 
     return output;
 }
