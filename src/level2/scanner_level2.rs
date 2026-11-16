@@ -97,6 +97,7 @@ pub fn scan_l2(line: &str) -> Vec<TokenLevel2> {
                 i+=9;
                 continue;
             }
+            tokens.push(TokenLevel2 { value: graphemes[i].to_string(), token_type: TokenTypeLevel2::Other });
         }
         else {
             tokens.push(TokenLevel2 { value: graphemes[i].to_string(), token_type: TokenTypeLevel2::Other });

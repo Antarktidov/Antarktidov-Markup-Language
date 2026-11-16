@@ -29,7 +29,7 @@ pub fn compile(entities: Vec<WTableLevel1Entity>) -> String {
                 j+=1;
             }
 
-            table += "</tr><thead><tbody>";
+            table += "</tr></thead><tbody>";
         }
 
         else if entities[i].entity_type == WTableLevel1EntityType::BodyLine {
