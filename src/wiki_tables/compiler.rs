@@ -29,7 +29,7 @@ pub fn compile(entities: Vec<WTableLevel1Entity>) -> String {
                 j+=1;
             }
 
-            table += "</tr><thead><tbody>";
+            table += "</tr></thead><tbody>";
         }
 
         else if entities[i].entity_type == WTableLevel1EntityType::BodyLine {
@@ -60,4 +60,33 @@ pub fn compile(entities: Vec<WTableLevel1Entity>) -> String {
 
 
     return table;
+}
+
+#[cfg(test)]
+mod tests {
+    use super::compile;
+    use crate::wiki_tables::parser::{WTableLevel1Entity, WTableLevel1EntityType};
+
+    #[test]
+    fn closes_table_head_before_body() {
+        let html = compile(vec![
+            WTableLevel1Entity {
+                entity_type: WTableLevel1EntityType::TableAttrs,
+                value: vec!["class=\"wikitable\"".to_string()],
+            },
+            WTableLevel1Entity {
+                entity_type: WTableLevel1EntityType::Head,
+                value: vec!["colspan=\"6\"".to_string(), "Shopping List".to_string()],
+            },
+            WTableLevel1Entity {
+                entity_type: WTableLevel1EntityType::BodyLine,
+                value: vec!["Bread & Butter".to_string()],
+            },
+        ]);
+
+        assert_eq!(
+            html,
+            "<table class=\"wikitable\"><thead><tr><th colspan=\"6\">Shopping List</th></tr></thead><tbody><tr><td>Bread & Butter</td></tr></tbody></table>"
+        );
+    }
 }
