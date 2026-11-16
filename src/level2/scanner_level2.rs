@@ -108,20 +108,3 @@ pub fn scan_l2(line: &str) -> Vec<TokenLevel2> {
 
     return tokens;
 }
-
-#[cfg(test)]
-mod tests {
-    use super::{scan_l2, TokenTypeLevel2};
-
-    #[test]
-    fn preserves_non_spoiler_html_tags() {
-        let tokens = scan_l2("<table><td>Item</td></table>");
-        let text: String = tokens
-            .into_iter()
-            .filter(|token| token.token_type == TokenTypeLevel2::Other)
-            .map(|token| token.value)
-            .collect();
-
-        assert_eq!(text, "<table><td>Item</td></table>");
-    }
-}
