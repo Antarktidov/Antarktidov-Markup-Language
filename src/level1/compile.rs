@@ -57,7 +57,6 @@ pub fn compile(entities: Vec<Entity>) -> String {
                 i+=1;
             }
             output += "</ul>";
-            i+=1;
             continue;
         }
 
@@ -68,7 +67,6 @@ pub fn compile(entities: Vec<Entity>) -> String {
                 i+=1;
             }
             output += "</ol>";
-            i+=1;
             continue;
         }
 
@@ -79,7 +77,6 @@ pub fn compile(entities: Vec<Entity>) -> String {
                 i+=1;
             }
             output += "</blockquote>";
-            i+=1;
             continue;
         }
 
