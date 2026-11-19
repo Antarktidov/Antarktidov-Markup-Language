@@ -47,6 +47,20 @@ pub mod tests {
         
     }
 
+    #[test]
+    pub fn test_internal_file_with_width() {
+        dotenv().ok();
+        let domain = env::var("domain").expect("domain must be set");
+        
+        let input = "[[Файл:Изображение с указанием ширины.png|200]]".to_string();
+        let mut expected_output = format!("<p><img src=\"{}/File/Изображение с указанием ширины.png\" width=\"200\"></p>", domain);
+        expected_output += &get_spoiler_css_js();
+
+        let output = sub_main(&input);
+        assert_eq!(output, expected_output);
+        
+    }
+
     fn get_spoiler_css_js() -> String {
         let mut output = String::new();
 
