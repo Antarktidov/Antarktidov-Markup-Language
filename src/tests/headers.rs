@@ -21,10 +21,18 @@ pub mod tests {
         html_headers += &get_spoiler_css_js();
         let markdown_html_headers = sub_main(&markdown_headers);
 
-        println!("{}", markdown_html_headers);
-        println!("{}", html_headers);
-
         assert_eq!(html_headers, markdown_html_headers);
+    }
+
+    #[test]
+    pub fn test_html_header() {
+        dotenv().ok();
+        let html_headers: String = "<h1>Header 1</h1>\r\n<h2>Header 2</h2>\r\n<h3>Header 3</h3>\r\n<h4>Header 4</h4>\r\n<h5>Header 5</h5>\r\n<h6>Header 6</h6>".to_string();
+        let mut html_headers_should_be_compiled = "<h1>Header 1</h1><h2>Header 2</h2><h3>Header 3</h3><h4>Header 4</h4><h5>Header 5</h5><h6>Header 6</h6>".to_string();
+        html_headers_should_be_compiled += &get_spoiler_css_js();
+        let compiled_html_headers = sub_main(&html_headers);
+
+        assert_eq!(compiled_html_headers, html_headers_should_be_compiled);
     }
 
     fn get_spoiler_css_js() -> String {
