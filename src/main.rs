@@ -9,12 +9,12 @@ mod wiki_tables;
 mod code_blocks;
 
 mod utils;
+mod tests;
 
 use dotenv::dotenv;
-fn main() {
-    dotenv().ok();
-    let code = filesystem::read_code_from_file();
-    let tokens: Vec<scanner::Token> = scanner::scan_code(&code.unwrap());
+
+fn sub_main(code: &str) -> String {
+    let tokens: Vec<scanner::Token> = scanner::scan_code(&code);
     let entities: Vec<parser::Entity> = parser::parse_code(tokens);
 
     let mut compiled_entities: Vec<parser::Entity> = vec![];
@@ -139,6 +139,15 @@ fn main() {
     }
 
     let html = compile(compiled_entities);
+    return html; 
+}
+
+fn main() {
+    dotenv().ok();
+    let code = filesystem::read_code_from_file();
+
+    let html = sub_main(&code.unwrap());
+    
     let final_html = final_fn(&html);
 
     filesystem::write_file(&final_html);
