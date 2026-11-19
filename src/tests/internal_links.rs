@@ -19,6 +19,20 @@ pub mod tests {
         
     }
 
+    #[test]
+    pub fn test_internal_link_with_different_display_text() {
+        dotenv().ok();
+        let domain = env::var("domain").expect("domain must be set");
+        
+        let input = "[[Вики-ссылка|Отображаемый текст]]]".to_string();
+        let mut expected_output = format!("<p><a href=\"{}/Вики-ссылка\">Отображаемый текст</a></p>", domain);
+        expected_output += &get_spoiler_css_js();
+
+        let output = sub_main(&input);
+        assert_eq!(output, expected_output);
+        
+    }
+
     fn get_spoiler_css_js() -> String {
         let mut output = String::new();
 
