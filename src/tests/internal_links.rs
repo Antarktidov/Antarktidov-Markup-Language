@@ -24,8 +24,22 @@ pub mod tests {
         dotenv().ok();
         let domain = env::var("domain").expect("domain must be set");
         
-        let input = "[[Вики-ссылка|Отображаемый текст]]]".to_string();
+        let input = "[[Вики-ссылка|Отображаемый текст]]".to_string();
         let mut expected_output = format!("<p><a href=\"{}/Вики-ссылка\">Отображаемый текст</a></p>", domain);
+        expected_output += &get_spoiler_css_js();
+
+        let output = sub_main(&input);
+        assert_eq!(output, expected_output);
+        
+    }
+
+    #[test]
+    pub fn test_internal_file() {
+        dotenv().ok();
+        let domain = env::var("domain").expect("domain must be set");
+        
+        let input = "[[Файл:Изображение.png]]".to_string();
+        let mut expected_output = format!("<p><img src=\"{}/File/Изображение.png\"></p>", domain);
         expected_output += &get_spoiler_css_js();
 
         let output = sub_main(&input);
