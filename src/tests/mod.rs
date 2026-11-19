@@ -7,3 +7,4 @@ pub mod infobox;
 pub mod code_blocks;
 pub mod div;
 pub mod md_table;
+pub mod wt_table;
