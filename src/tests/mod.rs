@@ -5,3 +5,4 @@ pub mod external_links;
 pub mod test_gallery;
 pub mod infobox;
 pub mod code_blocks;
+pub mod div;
